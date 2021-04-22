@@ -1,6 +1,6 @@
 {
-  "name": "frontend-2021-framework",
-  "version": "0.3.1",
+  "name": "tanks-guide",
+  "version": "0.1.0",
   "description": "",
   "main": "index.html",
   "scripts": {
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kottans/framework-2021.git"
+    "url": "git+https://github.com/madmaxWMFU/tanks-guide.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kottans/framework-2021/issues"
+    "url": "https://github.com/madmaxWMFU/tanks-guide/issues"
   },
-  "homepage": "https://github.com/kottans/framework-2021#readme",
+  "homepage": "https://github.com/madmaxWMFU/tanks-guide#readme",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.13.14",
