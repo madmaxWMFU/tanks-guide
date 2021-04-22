@@ -66,7 +66,7 @@ function getVehicleNations(nationList) {
   for (let nation in nationList) {
     list += `
             <li class='nation-item' data-nation="${nation}" onclick="window.dataStore.vehicle_nation = this.dataset.nation; window.renderVehicleList();">
-                <img class='nation-img' src='/images/flags/${nation}.png' alt='${nationList[nation]}'>
+                <img class='nation-img' src='./images/flags/${nation}.png' alt='${nationList[nation]}'>
                 <span>${nationList[nation]}</span>
             </li>
         `;
@@ -83,7 +83,7 @@ function getVehicleTypes(vehicleTypes) {
   for (let type in vehicleTypes) {
     list += `
             <li class='type-item' data-type="${type}" onclick="window.dataStore.vehicle_types = this.dataset.type; window.renderVehicleList();">
-                <img class='type-img' src='/images/types/${type.toLocaleLowerCase()}.png' alt='${
+                <img class='type-img' src='./images/types/${type.toLocaleLowerCase()}.png' alt='${
       vehicleTypes[type]
     }'>
                 <span>${vehicleTypes[type]}</span>
