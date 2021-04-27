@@ -102,8 +102,8 @@ function getVehicleList() {
           <div 
             class="vehicle-item" 
             data-type='vehicleData'
-            data-value="tank_id-${vehicle.tank_id}" 
-            onclick="(${searchById})(this.dataset)"
+            data-value='tank_id-${vehicle.tank_id}' 
+            onclick='(${searchById})(this.dataset)'
           > 
             <span 
               class="vehicle-type ${
@@ -143,9 +143,9 @@ function getVehicleTypes() {
             return `
               <li 
                 class='type-item' 
-                data-type="searchData"
-                data-value="type-${type}" 
-                onclick="(${window.searchByFilter})(this.dataset);"
+                data-type='searchData'
+                data-value='type-${type}'
+                onclick='(${window.searchByFilter})(this.dataset);'
               >
                 <img 
                   class='type-img' 
@@ -170,9 +170,9 @@ function getVehicleNations() {
             return `
               <li 
                 class='nation-item' 
-                data-type="searchData"
-                data-value="nation-${nation}" 
-                onclick="(${window.searchByFilter})(this.dataset);"
+                data-type='searchData'
+                data-value='nation-${nation}'
+                onclick='(${window.searchByFilter})(this.dataset);'
               >
                 <img 
                   class='nation-img' 
