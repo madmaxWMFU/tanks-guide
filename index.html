@@ -16,8 +16,15 @@
         </a>
       </div>
       <nav>
-        <select class="lang">
+        <select
+          class="lang"
+          onchange="window.dataStore.init.param.language = this.value; performSearch(window.dataStore.init.cache, window.dataStore.init.path, window.dataStore.init.param); window.dataStore.filters.language = this.value; renderApp();"
+        >
           <option value="ru">ru</option>
+          <option value="en">en</option>
+          <option value="de">de</option>
+          <option value="fr">fr</option>
+          <option value="zh-cn">ch</option>
         </select>
       </nav>
     </header>

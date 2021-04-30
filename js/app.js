@@ -1,11 +1,10 @@
-import { getUrl, getRomeNumber, addActiveFilter, filterByTier } from './utils';
+import { getUrl, getRomeNumber } from './utils';
 
 if (module.hot) {
   module.hot.accept();
 }
 
 window.dataStore = {
-  activeFilters: {},
   status: {
     error: null,
     process: null,
@@ -24,6 +23,7 @@ window.dataStore = {
   },
   filters: {},
   vehicle_compare: [],
+  user_compare: [],
 };
 
 window.renderApp = renderApp;
@@ -70,23 +70,22 @@ function searchByFilter(vehicle) {
   const [key, value] = vehicle.dataset.value.split('_');
   window.dataStore.filters[key] = value;
   window.performSearch(cacheType, 'vehicles', window.dataStore.filters);
-  addActiveFilter(vehicle);
 }
 
 function searchById(id) {
   if (id) {
     const vehicle = window.dataStore.cache.searchData[id];
     document.querySelector('.modal').classList.add('modal--active');
-    document.querySelector('.modal').innerHTML = `     <div class="modal-body">
-        <div>
-          <button onclick="document.querySelector('.modal').classList.remove('modal--active');"></button>
+    document.querySelector('.modal').innerHTML = `     
+      <div class="modal-body">
+        <div class="modal-header">
+          <button class="modal-header_btn" onclick="document.querySelector('.modal').classList.remove('modal--active');">x</button>
         </div>
         <div class="modal-wrap">
           <div class="vehicle-item">
             <span 
-              class="vehicle-type ${
-                vehicle.is_premium ? `type-${vehicle.type}--premium` : `type-${vehicle.type}`
-              }"
+              class="vehicle-type 
+                  ${vehicle.is_premium ? `type-${vehicle.type}--premium` : `type-${vehicle.type}`}"
             >
               ${getRomeNumber(vehicle.tier)}
             </span>
@@ -100,43 +99,130 @@ function searchById(id) {
             > 
           </div>
           <div>
-            <p class="vehicle-prop">
+            <p class="modal-wrap_title vehicle-prop">
               <b class="vehicle-name">${vehicle.name}</b> - 
-              <b class="vehicle-price">${vehicle.price_credit}</b>
+              <b class="vehicle-price">
+                ${vehicle.price_credit ? vehicle.price_credit : vehicle.price_gold}
+              </b>
             </p>
             <p class="vehicle-prop vehicle-description">${vehicle.description}</p>
           </div>
         </div>
-        <p class="vehicle-prop">
-          <span class="vehicle-hp_title">Прочность: </span><b class="vehicle-hp">${
-            vehicle.default_profile.hp
-          }</b>
-        </p>
-        <p class="vehicle-prop">
-          <span class="vehicle-max_ammo_title">Боекомплект: </span><b class="vehicle-max_ammo">${
-            vehicle.default_profile.max_ammo
-          }</b>
-        </p>
-        <p class="vehicle-prop">
-          <span class="vehicle-_title"> :</span><b class="vehicle-">${
-            vehicle.default_profile.max_ammo
-          }</b>
-        </p>
-        <p class="vehicle-prop">
-          <span class="vehicle-speed_forward_title">Максимальная скорость (км/ч) :</span><b class="vehicle-speed_forward">${
-            vehicle.default_profile.speed_forward
-          }</b>
-        </p>
-        <p class="vehicle-prop">
-          <span class="vehicle-speed_backward_title">Макс. скорость заднего хода (км/ч) :</span><b class="vehicle-speed_backward">${
-            vehicle.default_profile.speed_backward
-          }</b>
-        </p>
-        <p class="vehicle-prop">
-          <span class="vehicle-weight_title">Масса (кг):</span><b class="vehicle-weight">${
-            vehicle.default_profile.weight
-          }</b>
-        </p>
+        <div class="modal-content">
+          <div>
+            <h2>Живучесть</h2>
+            <p class="vehicle-prop">
+              <span class="vehicle-hp_title">Прочность: </span>
+              <b class="vehicle-hp">
+                ${vehicle.default_profile.hp}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-hull_title">Бронирование корпуса (мм): </span>
+              <b class="vehicle-hull">
+                ${Object.values(vehicle.default_profile.armor.hull).join(' / ')}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-weight_title">Масса (кг):</span>
+              <b class="vehicle-weight">
+                ${vehicle.default_profile.weight}
+              </b>
+            </p>
+          </div>
+          <div>
+            <h2>Огневая мощь</h2>
+            <p class="vehicle-prop">
+              <span class="vehicle-damage_title">Урон: </span>
+              <b class="vehicle-damage">
+                ${vehicle.default_profile.ammo
+                  .map(item => {
+                    return item.damage[1];
+                  })
+                  .join(' / ')}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-penetration_title">Бронепробитие: </span>
+              <b class="vehicle-penetration">
+                ${vehicle.default_profile.ammo
+                  .map(item => {
+                    return item.penetration[1];
+                  })
+                  .join(' / ')}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-fire_rate_title">Скорострельность (выстр/мин): </span>
+              <b class="vehicle-fire_rate">
+                ${vehicle.default_profile.gun.fire_rate}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-aim_time_title">Время сведения (с): </span>
+              <b class="vehicle-aim_time">
+                ${vehicle.default_profile.gun.aim_time}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-dispersion_title">Разброс на 100 м (м): </span>
+              <b class="vehicle-dispersion">
+                ${vehicle.default_profile.gun.dispersion}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-max_ammo_title">Боекомплект: </span>
+              <b class="vehicle-max_ammo">
+                ${vehicle.default_profile.max_ammo}
+              </b>
+            </p>
+          </div>
+          <div>
+            <h2 class="vehicle-crew_title">Экипаж</h2>
+            <p class="vehicle-prop vehicle-crew">
+              ${vehicle.crew
+                .map((member, key) => {
+                  return `${++key}. ${Object.values(member.roles).join('-')}`;
+                })
+                .join('<br>')}
+            </p>
+          </div>
+          <div>
+            <h2 class="vehicle-crew_title">Наблюдение</h2>
+            <p class="vehicle-prop">
+              <span class="vehicle-speed_forward_title">Обзор (м) :</span>
+              <b class="vehicle-speed_forward">
+                ${vehicle.default_profile.turret.view_range}
+              </b>
+            </p>        
+            <p class="vehicle-prop">
+              <span class="vehicle-speed_forward_title">Дальность связи (м) :</span>
+              <b class="vehicle-speed_forward">
+                ${vehicle.default_profile.radio.signal_range}
+              </b>
+            </p>
+          </div>
+          <div>
+            <h2>Передвижение</h2>
+            <p class="vehicle-prop">
+              <span class="vehicle-speed_forward_title">Максимальная скорость (км/ч) :</span>
+              <b class="vehicle-speed_forward">
+                ${vehicle.default_profile.speed_forward}
+              </b>
+            </p>
+            <p class="vehicle-prop">
+              <span class="vehicle-speed_backward_title">Макс. скорость заднего хода (км/ч) :</span>
+              <b class="vehicle-speed_backward">
+                ${vehicle.default_profile.speed_backward}
+              </b>
+            </p>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button class="modal-footer_btn" onclick="window.dataStore.vehicle_compare.push(${
+              vehicle.tank_id
+            });">Добавить для сравнения</button>
+          </div>
       </div>
     `;
   } else {
@@ -260,7 +346,7 @@ function App() {
     <div class="vehicle-wrap">
         ${getVehicleList()}
     </div>
-    <div class="infoVehicle-wrap modal ">
+    <div class="modal">
     </div>
     `;
 }

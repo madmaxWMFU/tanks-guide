@@ -263,6 +263,32 @@ body {
   overflow-y: auto;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: solid 1px #828282;
+  padding-bottom: 10px;
+}
+
+.modal-header_btn {
+  width: 30px;
+}
+
+.modal-header_btn,
+.modal-footer_btn {
+  height: 30px;
+  border-radius: 8px;
+  line-height: 0px;
+  background-color: #8e8888;
+  border: solid 1px #fff;
+}
+
+.modal-header_btn:hover,
+.modal-footer_btn:hover {
+  background-color: #fff;
+  border-color: #8e8888;
+}
+
 .modal-body {
   margin: 160px auto;
   width: 70%;
@@ -273,13 +299,38 @@ body {
 }
 
 .modal-wrap {
-  margin: 9.75rem auto;
+  display: flex;
+  margin: 20px 5px 10px 5px;
   width: auto;
   max-width: 515px;
   border: solid 5px #000;
   border-radius: 10px;
-  padding: 40px;
+  padding: 10px;
   background-color: #000;
+}
+
+.modal-wrap_title {
+  margin: 10px 0;
+}
+
+.modal-content {
+  margin: 30px;
+}
+
+.modal-content > div {
+  margin-bottom: 5px;
+}
+
+.modal-content > div > h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: solid 1px #828282;
+  padding-top: 10px;
 }
 
 .footer {
@@ -332,6 +383,7 @@ body {
 
 .github::before {
   background-image: url(../images/page/github.svg);
+  background-size: 24px 24px;
 }
 
 .wot::before {
@@ -347,6 +399,11 @@ body {
     flex-direction: column;
     align-items: flex-end;
     padding: 20px;
+  }
+
+  .modal-body {
+    margin: 40px auto;
+    width: 90%;
   }
 }
 
@@ -391,6 +448,10 @@ body {
 
   .footer-list {
     margin: 0px 10px 0 170px;
+  }
+
+  .footer-item {
+    text-align: end;
   }
 
   .footer-link {
