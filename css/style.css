@@ -106,8 +106,21 @@ body {
 
 .vehicle-wrap {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.search-type_title {
+  color: #fff;
+  margin: 12px;
+}
+
+.search-type_wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .vehicle-item {
@@ -300,10 +313,7 @@ body {
 
 .modal-wrap {
   display: flex;
-  margin: 20px auto;
-  border: solid 5px #000;
   border-radius: 10px;
-  padding: 10px;
   background-color: #000;
 }
 
@@ -313,6 +323,28 @@ body {
 
 .modal-content {
   margin: 30px;
+}
+
+.vehicle-price {
+  position: relative;
+  padding-left: 15px;
+}
+
+.vehicle-price::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 16px;
+  width: 12px;
+}
+
+.price-silver::before {
+  background: url(../images/page/silver_icon.png) no-repeat 0 3px;
+}
+
+.price-gold::before {
+  background: url(../images/page/gold_icon.png) no-repeat 0 3px;
 }
 
 .modal-content > div {

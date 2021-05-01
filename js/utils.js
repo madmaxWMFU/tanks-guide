@@ -24,9 +24,27 @@ const romeNumber = {
   10: 'X',
 };
 
-export const filterByCategory = (list, category) => {};
+const sortByTier = (a, b) => a.tier - b.tier;
 
-export const filterByTier = list => {};
+const filterByType = (list, type) => {
+  return Object.values(list).filter(vehicle => vehicle.type == type);
+};
+
+const getSortList = list => {
+  return Object.values(list).sort((firstVehicle, secondVehicle) => {
+    return sortByTier(firstVehicle, secondVehicle);
+  });
+};
+
+export const getFilterList = list => {
+  return {
+    lightTank: getSortList(filterByType(list, 'lightTank')),
+    mediumTank: getSortList(filterByType(list, 'mediumTank')),
+    heavyTank: getSortList(filterByType(list, 'heavyTank')),
+    'AT-SPG': getSortList(filterByType(list, 'AT-SPG')),
+    SPG: getSortList(filterByType(list, 'SPG')),
+  };
+};
 
 export const getUrl = (path, param = {}) => {
   let params = { ...parameters, ...param };
