@@ -21,9 +21,8 @@
           onchange="
             window.dataStore.init.param.language = this.value; 
             window.dataStore.cache.searchData = null;
-            performSearch(window.dataStore.init.cache, window.dataStore.init.path, window.dataStore.init.param); 
-            window.dataStore.filters.language = this.value; 
-            renderApp();"
+            performSearch(window.dataStore.init.cache, window.dataStore.init.path, window.dataStore.init.param, 'renderApp'); 
+            window.dataStore.filters.language = this.value;"
         >
           <option value="ru" checked="">ru</option>
           <option value="en">en</option>
@@ -34,7 +33,7 @@
       </nav>
     </header>
     <section>
-      <div class="main-wrap" id="app-root"></div>
+      <div id="app-root"></div>
     </section>
     <footer class="footer">
       <ul class="footer-list">

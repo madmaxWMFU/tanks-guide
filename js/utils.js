@@ -1,6 +1,5 @@
 const parameters = {
-  //   application_id: process.env.WOT_API_ID_KEY,
-  application_id: '42a820be7f4b3fa53490a3eebeae0521',
+  application_id: process.env.WOT_API_ID_KEY,
 };
 
 const getStringParams = params => {
@@ -49,9 +48,13 @@ export const getFilterList = list => {
 export const getUrl = (path, param = {}) => {
   let params = { ...parameters, ...param };
   getStringParams(params);
-  return `https://api.worldoftanks.ru/wot/encyclopedia/${path}/?${getStringParams(params)}`;
+  return `https://api.worldoftanks.ru/wot/${path}/?${getStringParams(params)}`;
 };
 
 export const getRomeNumber = num => {
   return romeNumber[num];
+};
+
+export const getDateFromUnixTimestamp = dt => {
+  return new Date(dt * 1000).toLocaleDateString();
 };
