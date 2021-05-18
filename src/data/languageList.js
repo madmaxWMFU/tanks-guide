@@ -1,4 +1,4 @@
-export const lang = {
+const languageList = {
   ru: {
     nation: 'Нация',
     type: 'Вид',
@@ -235,3 +235,5 @@ export const lang = {
     },
   },
 };
+
+export default languageList;

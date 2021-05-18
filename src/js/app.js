@@ -1,5 +1,5 @@
-import { getUrl, getRomeNumber, getFilterList, getDateFromUnixTimestamp } from './utils';
-import { lang } from './lang';
+import { getUrl, getRomeNumber, getFilterList, getDateFromUnixTimestamp } from '../utils';
+import { lang } from '../lang';
 
 if (module.hot) {
   module.hot.accept();
