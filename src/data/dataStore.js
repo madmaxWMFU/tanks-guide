@@ -20,6 +20,11 @@ const dataStore = {
   user: null,
   filters: {},
   vehicle_compare: [],
+  modal: {
+    id: null,
+    name: null,
+    state: false,
+  },
 };
 
 export default dataStore;

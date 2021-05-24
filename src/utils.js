@@ -20,5 +20,10 @@ export function getDateFromUnixTimestamp(dt) {
 }
 
 export function closeModal(modal, type) {
-  modal.closest(`.${type}`).classList.remove('modal--active');
+  const modalWrap = modal.closest(`.${type}`);
+  const activeClass = Object.values(modalWrap.classList).filter(itemClass =>
+    itemClass.includes('modalActive'),
+  );
+  modalWrap.classList.remove(activeClass);
 }
+export const isFunction = func => typeof func === 'function';

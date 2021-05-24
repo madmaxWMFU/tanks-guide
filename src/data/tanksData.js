@@ -1,6 +1,7 @@
 import { getTankUrl } from './tanksAPI';
 import App from '../components/App';
-
+import renderApp from '../framework/render';
+import getUserInfo from '../components/GetInfoUser';
 const sortByTier = (a, b) => a.tier - b.tier;
 
 const filterByType = (list, type) => {
@@ -17,14 +18,14 @@ export function getUserData() {
   const { userAccount } = window.dataStore.cache;
   if (userAccount) {
     const [{ account_id: id }] = dataStore.cache.userAccount;
-    window.performSearch('userData', 'account/info', { account_id: id }, 'getUserInfo');
+    performSearch('userData', 'account/info', { account_id: id }, getUserInfo);
   }
 }
 
 export function getUserAccountId() {
   const nickname = window.dataStore.user;
   if (nickname) {
-    window.performSearch('userAccount', 'account/list', { search: nickname }, 'getUserData');
+    performSearch('userAccount', 'account/list', { search: nickname }, getUserData);
   }
 }
 
@@ -38,15 +39,15 @@ export async function loadData(path, param) {
 export function performSearch(cache, path, param, func) {
   window.dataStore.status.error = null;
   window.dataStore.status.process = true;
-  window.renderApp(App, 'app-root');
+  renderApp();
 
-  window
-    .loadData(path, param)
+  loadData(path, param)
     .then(({ error, data }) => {
       window.dataStore.status.process = false;
 
-      if (error) {
-        window.dataStore.status.error = 'error';
+      const errorFromAPI = data.code !== '200' && data.message;
+      if (error || errorFromAPI) {
+        window.dataStore.status.error = error || data.message;
       } else if (data) {
         window.dataStore.cache[cache] = data;
       }
@@ -54,19 +55,14 @@ export function performSearch(cache, path, param, func) {
     .catch(() => {
       window.dataStore.status.error = 'Some error occurred.';
     })
-    .finally(window[func]);
+    .finally(func);
 }
 
 export function searchByFilter(vehicle) {
   const cacheType = vehicle.dataset.type;
   const [key, value] = vehicle.dataset.value.split('_');
   window.dataStore.filters[key] = value;
-  window.performSearch(
-    'searchData',
-    'encyclopedia/vehicles',
-    window.dataStore.filters,
-    'renderApp',
-  );
+  performSearch('searchData', 'encyclopedia/vehicles', window.dataStore.filters, renderApp);
 }
 
 export default function getFilterList(list) {
