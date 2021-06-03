@@ -1,43 +1,34 @@
 /** @jsx createElement */
 /*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework/element';
-import { searchByFilter } from '../data/tanksData';
-import atSpg from '../assets/types/AT-SPG.png';
-import heavyTank from '../assets/types/heavyTank.png';
-import lightTank from '../assets/types/lightTank.png';
-import mediumTank from '../assets/types/mediumTank.png';
-import spg from '../assets/types/SPG.png';
-import { typeList, typeItem, typeImg } from './GetVehicleTypes.css';
+import { createElement, createFragment } from '../framework';
+import imgTypeList from '../assets/types/*.png';
+import { typeList, typeInput, typeItem, typeImg } from './GetVehicleTypes.css';
 
-export default function GetVehicleTypes() {
-  if (window.dataStore.cache.generalData) {
-    const { vehicle_types: vehicleTypes } = window.dataStore.cache.generalData;
-
+export default function GetVehicleTypes({ selectType, vehicleTypes, addToSelectTypeList }) {
+  if (vehicleTypes !== undefined) {
     return (
-      <ul class={typeList}>
-        {Object.keys(vehicleTypes).map(type => {
-          let img = [atSpg, heavyTank, mediumTank, lightTank, spg].filter(typeImg => {
-            if (typeImg.includes('-') && typeImg.includes(type)) {
-              return typeImg;
-            }
-
-            if (!typeImg.includes('-') && typeImg.includes(type)) {
-              return typeImg;
-            }
-          });
-          return (
-            <li
-              class={typeItem}
-              data-type="searchData"
-              data-value={`type_${type}`}
-              onclick={event => searchByFilter(event.target)}
-            >
-              <img class={typeImg} src={img} alt={`${vehicleTypes[type]}`} />
-              <span>{`${vehicleTypes[type]}`}</span>
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        <div class={typeList}>
+          {Object.keys(vehicleTypes).map((type, key) => {
+            return (
+              <div>
+                <input
+                  class={typeInput}
+                  id={`type${key}`}
+                  type="checkbox"
+                  data-value={type}
+                  checked={selectType.includes(type) ? true : false}
+                  onclick={event => addToSelectTypeList(event.target.dataset.value)}
+                />
+                <label class={typeItem} For={`type${key}`}>
+                  <img class={typeImg} src={imgTypeList[type]} alt={`${vehicleTypes[type]}`} />
+                  <span>{`${vehicleTypes[type]}`}</span>
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </>
     );
   } else {
     return '';

@@ -1,8 +1,9 @@
-const languageList = {
+export const languageList = {
   ru: {
     nation: 'Нация',
     type: 'Вид',
     modal: {
+      emptyList: 'Список сравнений пуст',
       name: 'Название',
       armor: 'Живучесть',
       hp: 'Прочность',
@@ -50,6 +51,7 @@ const languageList = {
     nation: 'Nation',
     type: 'Type',
     modal: {
+      emptyList: 'Comparison list is empty',
       name: 'Name',
       armor: 'Vitality',
       hp: 'Strength',
@@ -97,6 +99,7 @@ const languageList = {
     nation: 'Nation',
     type: 'Vue',
     modal: {
+      emptyList: 'La liste de comparaison est vide',
       name: 'Nom',
       armor: 'Vitalité',
       hp: 'Force',
@@ -144,6 +147,7 @@ const languageList = {
     nation: 'Nation',
     type: 'Aussicht',
     modal: {
+      emptyList: 'Vergleichsliste ist leer',
       name: 'Name',
       armor: 'Vitalität',
       hp: 'Stärke',
@@ -191,6 +195,7 @@ const languageList = {
     nation: '国家',
     type: '看法',
     modal: {
+      emptyList: '比較列表為空',
       name: '名稱',
       armor: '活力',
       hp: '力量',
@@ -235,5 +240,3 @@ const languageList = {
     },
   },
 };
-
-export default languageList;

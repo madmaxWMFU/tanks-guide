@@ -1,3 +1,17 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+}
+
+button {
+  cursor: pointer;
+}
+
 .infoWrap {
   display: flex;
   flex-direction: row-reverse;

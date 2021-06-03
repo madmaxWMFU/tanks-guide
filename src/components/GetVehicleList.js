@@ -1,39 +1,25 @@
 /** @jsx createElement */
 /*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework/element';
-import languageList from '../data/languageList';
-import getFilterList from '../data/tanksData';
-import renderApp from '../framework/render';
+import { createElement, createFragment } from '../framework';
+import { languageList, getFilterList } from '../data';
 import { getRomeNumber } from '../utils';
 import style from './GetVehicleList.css';
 
-export default function GetVehicleList() {
-  const { language } = window.dataStore.init.param;
-  const { searchData } = window.dataStore.cache;
-  const { process, error } = window.dataStore.status;
-  const { typeTank } = languageList[language];
-
-  let content = '';
-
-  if (process) {
-    content = (
-      <>
-        <p>{'Loading...'}</p>
-      </>
-    );
-  }
-
-  if (error !== null) {
-    content = error;
-  }
+export default function GetVehicleList({
+  selectLanguage,
+  searchData,
+  setVehicleId,
+  setModalVehicleStatus,
+}) {
+  const { typeTank } = languageList[selectLanguage];
 
   if (searchData) {
-    content = (
+    return (
       <>
         {Object.entries(getFilterList(searchData)).map(([type, list]) => {
           if (list.length > 0) {
             return (
-              <div class={style.searchType}>
+              <div class="searchType">
                 <h1 class={style.searchTypeTitle}>{`${typeTank[type]}`}</h1>
                 <div class={style.searchTypeWrap}>
                   {list.map(vehicle => {
@@ -56,16 +42,9 @@ export default function GetVehicleList() {
                           src={vehicle.images.big_icon}
                           alt={vehicle.short_name}
                           data-id={vehicle.tank_id}
-                          onclick={e => {
-                            window.dataStore.modal.id = e.target.dataset.id;
-                            window.dataStore.modal.name = 'modalVehicle';
-                            window.dataStore.modal.state = true;
-                            window.performSearch(
-                              window.dataStore.init.cache,
-                              window.dataStore.init.path,
-                              window.dataStore.init.param,
-                              renderApp,
-                            );
+                          onclick={event => {
+                            setVehicleId(event.target.dataset.id);
+                            setModalVehicleStatus(true);
                           }}
                         />
                         <span
@@ -86,5 +65,4 @@ export default function GetVehicleList() {
       </>
     );
   }
-  return content;
 }

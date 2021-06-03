@@ -6,6 +6,13 @@
   font-size: 15px;
   color: #fff;
   width: 120px;
+  position: relative;
+}
+
+.nationInput {
+  position: absolute;
+  height: 0px;
+  width: 0px;
 }
 
 .nationItem {
@@ -15,15 +22,19 @@
   text-align: center;
   cursor: pointer;
   margin: 10px;
-  padding: 7px 1px;
+  padding: 5px;
 }
 
-.nationItem--active {
+.nationInput:checked + .nationItem {
+  border-radius: 14px;
+  border: solid 1px;
   box-shadow: 0px 0px 10px 5px #cc2331;
 }
 
 .nationItem:hover {
-  box-shadow: 0px 0px 10px 5px #63b524;
+  border-radius: 14px;
+  border: solid 1px;
+  box-shadow: 0px 0px 10px 5px #676560;
 }
 
 .nationItem span {

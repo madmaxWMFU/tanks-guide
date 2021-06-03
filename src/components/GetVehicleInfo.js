@@ -1,17 +1,20 @@
 /** @jsx createElement */
 /*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework/element';
-import languageList from '../data/languageList';
+import { createElement, createFragment } from '../framework';
+import { languageList } from '../data';
 import { getRomeNumber, closeModal } from '../utils';
 import style from './GetVehicleInfo.css';
 
-export function getVehicleInfo() {
-  const id = window.dataStore.modal.id;
-  const data = window.dataStore.cache.searchData;
-  if (id && data) {
-    const { language } = window.dataStore.init.param;
-    const { modal } = languageList[language];
-    const vehicle = data[id];
+export default function GetVehicleInfo({
+  selectLanguage,
+  vehicle,
+  setVehicleId,
+  setModalVehicleStatus,
+  vehicleId,
+  addToCompareList,
+}) {
+  if (selectLanguage && vehicle) {
+    const { modal } = languageList[selectLanguage];
 
     return (
       <>
@@ -19,11 +22,10 @@ export function getVehicleInfo() {
           <div class={style.modalHeader}>
             <button
               class={style.modalHeaderBtn}
-              onclick={e => {
-                closeModal(e.target, 'modalVehicle');
-                window.dataStore.modal.id = null;
-                window.dataStore.modal.name = null;
-                window.dataStore.modal.state = false;
+              onclick={event => {
+                closeModal(event.target, 'modalVehicle');
+                setVehicleId(null);
+                setModalVehicleStatus(false);
               }}
             >
               x
@@ -73,17 +75,17 @@ export function getVehicleInfo() {
             <div>
               <h2>{modal.armor}</h2>
               <p>
-                <span>{modal.hp}:</span>
+                <span>{modal.hp}: </span>
                 <b>{vehicle.default_profile.hp}</b>
               </p>
               <p>
-                <span>{modal.hull}:</span>
+                <span>{modal.hull}: </span>
                 <b>{Object.values(vehicle.default_profile.armor.hull).join(' / ')}</b>
               </p>
               <>
                 {vehicle.default_profile.armor.turret ? (
                   <p>
-                    <span>{modal.turret}:</span>
+                    <span>{modal.turret}: </span>
                     <b>{Object.values(vehicle.default_profile.armor.turret).join(' / ')}</b>
                   </p>
                 ) : (
@@ -91,14 +93,14 @@ export function getVehicleInfo() {
                 )}
               </>
               <p>
-                <span>{modal.weight}:</span>
+                <span>{modal.weight}: </span>
                 <b>{vehicle.default_profile.weight}</b>
               </p>
             </div>
             <div>
               <h2>{modal.ammo}</h2>
               <p>
-                <span>{modal.damage}:</span>
+                <span>{modal.damage}: </span>
                 <b>
                   {vehicle.default_profile.ammo
                     .map(item => {
@@ -108,7 +110,7 @@ export function getVehicleInfo() {
                 </b>
               </p>
               <p>
-                <span>{modal.penetration}:</span>
+                <span>{modal.penetration}: </span>
                 <b>
                   {vehicle.default_profile.ammo
                     .map(item => {
@@ -118,19 +120,19 @@ export function getVehicleInfo() {
                 </b>
               </p>
               <p>
-                <span>{modal.fire_rate}:</span>
+                <span>{modal.fire_rate}: </span>
                 <b>{vehicle.default_profile.gun.fire_rate}</b>
               </p>
               <p>
-                <span>{modal.aim_time}:</span>
+                <span>{modal.aim_time}: </span>
                 <b>{vehicle.default_profile.gun.aim_time}</b>
               </p>
               <p>
-                <span>{modal.dispersion}:</span>
+                <span>{modal.dispersion}: </span>
                 <b>{vehicle.default_profile.gun.dispersion}</b>
               </p>
               <p>
-                <span>{modal.max_ammo}:</span>
+                <span>{modal.max_ammo}: </span>
                 <b>{vehicle.default_profile.max_ammo}</b>
               </p>
             </div>
@@ -147,22 +149,22 @@ export function getVehicleInfo() {
             <div>
               <h2>{modal.range}</h2>
               <p>
-                <span>{modal.view_range}:</span>
+                <span>{modal.view_range}: </span>
                 <b>{vehicle.default_profile.turret.view_range}</b>
               </p>
               <p>
-                <span>{modal.signal_range}:</span>
+                <span>{modal.signal_range}: </span>
                 <b>{vehicle.default_profile.radio.signal_range}</b>
               </p>
             </div>
             <div>
               <h2>{modal.speed}</h2>
               <p>
-                <span>{modal.speed_forward}:</span>
+                <span>{modal.speed_forward}: </span>
                 <b>{vehicle.default_profile.speed_forward}</b>
               </p>
               <p>
-                <span>{modal.speed_backward}:</span>
+                <span>{modal.speed_backward}: </span>
                 <b>{vehicle.default_profile.speed_backward}</b>
               </p>
             </div>
@@ -170,12 +172,12 @@ export function getVehicleInfo() {
           <div class={style.modalFooter}>
             <button
               class={style.modalFooterBtn}
-              onclick={e => {
-                window.dataStore.vehicle_compare.push(vehicle.tank_id);
-                closeModal(e.target, 'modalVehicle');
-                window.dataStore.modal.id = null;
-                window.dataStore.modal.name = null;
-                window.dataStore.modal.state = false;
+              data-id={vehicleId}
+              onclick={event => {
+                closeModal(event.target, 'modalVehicle');
+                setVehicleId(null);
+                setModalVehicleStatus(false);
+                addToCompareList(event.target.dataset.id);
               }}
             >
               {modal.btn_add_compare}

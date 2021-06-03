@@ -1,55 +1,49 @@
 /** @jsx createElement */
 /*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework/element';
-import { searchByFilter } from '../data/tanksData';
-import china from '../assets/flags/china.png';
-import czech from '../assets/flags/czech.png';
-import france from '../assets/flags/france.png';
-import germany from '../assets/flags/germany.png';
-import italy from '../assets/flags/italy.png';
-import japan from '../assets/flags/japan.png';
-import poland from '../assets/flags/poland.png';
-import sweden from '../assets/flags/sweden.png';
-import uk from '../assets/flags/uk.png';
-import usa from '../assets/flags/usa.png';
-import ussr from '../assets/flags/ussr.png';
-import { nationList, nationItem, nationImg } from './GetVehicleNation.css';
+import { createElement, createFragment } from '../framework';
+import imgNationList from '../assets/flags/*.png';
+import { nationList, nationInput, nationItem, nationImg } from './GetVehicleNation.css';
 
-export default function GetVehicleNations() {
-  if (window.dataStore.cache.generalData) {
-    const { vehicle_nations: nationsList } = window.dataStore.cache.generalData;
-
+export default function GetVehicleNations({
+  selectNation,
+  nationsList,
+  addToSelectNationList,
+  deleteFromSelectNationList,
+}) {
+  if (nationsList !== undefined) {
     return (
       <>
-        <ul class={nationList}>
-          {Object.keys(nationsList).map(nation => {
-            let img = [
-              china,
-              czech,
-              france,
-              germany,
-              italy,
-              japan,
-              poland,
-              sweden,
-              uk,
-              usa,
-              ussr,
-            ].filter(country => country.includes(nation));
-
+        <div class={nationList}>
+          {Object.keys(nationsList).map((nation, key) => {
             return (
-              <li
-                class={nationItem}
-                data-type="searchData"
-                data-value={`nation_${nation}`}
-                onclick={event => searchByFilter(event.target)}
-              >
-                <img class={nationImg} src={img} alt={`${nationsList[nation]}`} />
-                <span>{`${nationsList[nation]}`}</span>
-              </li>
+              <div>
+                <input
+                  class={nationInput}
+                  id={`nation${key}`}
+                  type="checkbox"
+                  data-value={nation}
+                  checked={selectNation.includes(nation) ? true : false}
+                  onclick={event => {
+                    const nationValue = event.target.dataset.value;
+                    if (selectNation.includes(nationValue)) {
+                      deleteFromSelectNationList(nationValue);
+                    } else {
+                      addToSelectNationList(nationValue);
+                    }
+                  }}
+                />
+                <label class={nationItem} For={`nation${key}`}>
+                  <img
+                    class={nationImg}
+                    src={imgNationList[nation]}
+                    alt={`${nationsList[nation]}`}
+                  />
+                  <span>{`${nationsList[nation]}`}</span>
+                </label>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </>
     );
   } else {

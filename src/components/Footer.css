@@ -36,6 +36,11 @@
   padding-left: 30px;
 }
 
+.footerLink:hover {
+  border-bottom: solid 1px;
+  padding-bottom: 5px;
+}
+
 .footerLink::before {
   content: '';
   position: absolute;

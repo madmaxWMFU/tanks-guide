@@ -26,4 +26,7 @@ export function closeModal(modal, type) {
   );
   modalWrap.classList.remove(activeClass);
 }
+
 export const isFunction = func => typeof func === 'function';
+
+export const isEmptyObject = obj => Object.entries(obj).length !== 0;

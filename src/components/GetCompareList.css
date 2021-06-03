@@ -26,12 +26,6 @@
   left: 2px;
 }
 
-.modalActive {
-  display: block;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 .modalHeader {
   display: flex;
   justify-content: flex-end;
@@ -117,6 +111,11 @@
   justify-content: flex-end;
   border-top: solid 1px #828282;
   padding-top: 10px;
+}
+
+.textCenter {
+  text-align: center;
+  margin: 40px auto;
 }
 
 @media (max-width: 900px) {
