@@ -32,13 +32,15 @@ export default function GetFilterWrap({ selectLanguage, addToCompareList }) {
     setSelectNation([...selectNation, id]);
   };
   const deleteFromSelectNationList = id => {
-    if (selectNation.includes(id)) {
-      const index = selectNation.indexOf(id);
-      setSelectNation([...selectNation.splice(index, 1), ...selectNation]);
-    }
+    const nations = selectNation.filter(el => el !== id);
+    setSelectNation(nations);
   };
   const addToSelectTypeList = id => {
     setSelectType([...selectType, id]);
+  };
+  const deleteFromSelectTypeList = id => {
+    const type = selectType.filter(el => el !== id);
+    setSelectType(type);
   };
 
   useEffect(() => {
@@ -93,6 +95,7 @@ export default function GetFilterWrap({ selectLanguage, addToCompareList }) {
           selectType={selectType}
           vehicleTypes={generalData['vehicle_types']}
           addToSelectTypeList={addToSelectTypeList}
+          deleteFromSelectTypeList={deleteFromSelectTypeList}
         />
       </div>
       <div class={vehicleWrap}>
