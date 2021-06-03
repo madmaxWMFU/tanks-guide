@@ -1,1 +1,0 @@
-{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,iBAGE,qBACF,CAEA,KACE,qBACF,CAEA,OACE,cACF","file":"style.93b4b3a0.css","sourceRoot":"../src","sourcesContent":["*,\n*::after,\n*::before {\n  box-sizing: border-box;\n}\n\nbody {\n  background-color: #000;\n}\n\nbutton {\n  cursor: pointer;\n}\n"]}
