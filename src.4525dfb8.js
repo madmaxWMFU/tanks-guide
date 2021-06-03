@@ -42,27 +42,27 @@ module.exports="china.b6e08170.png";
 module.exports="czech.c4be5d4a.png";
 },{}],"0y78":[function(require,module,exports) {
 module.exports="flags.79823762.png";
-},{}],"EoMB":[function(require,module,exports) {
-module.exports="france.d899c4be.png";
 },{}],"nmis":[function(require,module,exports) {
 module.exports="germany.383c8b53.png";
-},{}],"QS2I":[function(require,module,exports) {
-module.exports="italy.f61f6bd4.png";
+},{}],"EoMB":[function(require,module,exports) {
+module.exports="france.d899c4be.png";
 },{}],"rWpn":[function(require,module,exports) {
 module.exports="japan.508bd132.png";
+},{}],"QS2I":[function(require,module,exports) {
+module.exports="italy.f61f6bd4.png";
 },{}],"+N5C":[function(require,module,exports) {
 module.exports="poland.d671e199.png";
 },{}],"kaP4":[function(require,module,exports) {
 module.exports="sweden.0c7cdefd.png";
 },{}],"JedR":[function(require,module,exports) {
 module.exports="uk.afc9e9ec.png";
-},{}],"NqyB":[function(require,module,exports) {
-module.exports="usa.28b86030.png";
 },{}],"2P5y":[function(require,module,exports) {
 module.exports="ussr.06dd4858.png";
+},{}],"NqyB":[function(require,module,exports) {
+module.exports="usa.28b86030.png";
 },{}],"v/Ri":[function(require,module,exports) {
-module.exports={china:require("./china.png"),czech:require("./czech.png"),flags:require("./flags.png"),france:require("./france.png"),germany:require("./germany.png"),italy:require("./italy.png"),japan:require("./japan.png"),poland:require("./poland.png"),sweden:require("./sweden.png"),uk:require("./uk.png"),usa:require("./usa.png"),ussr:require("./ussr.png")};
-},{"./china.png":"2721","./czech.png":"jIRQ","./flags.png":"0y78","./france.png":"EoMB","./germany.png":"nmis","./italy.png":"QS2I","./japan.png":"rWpn","./poland.png":"+N5C","./sweden.png":"kaP4","./uk.png":"JedR","./usa.png":"NqyB","./ussr.png":"2P5y"}],"I1kJ":[function(require,module,exports) {
+module.exports={china:require("./china.png"),czech:require("./czech.png"),flags:require("./flags.png"),germany:require("./germany.png"),france:require("./france.png"),japan:require("./japan.png"),italy:require("./italy.png"),poland:require("./poland.png"),sweden:require("./sweden.png"),uk:require("./uk.png"),ussr:require("./ussr.png"),usa:require("./usa.png")};
+},{"./china.png":"2721","./czech.png":"jIRQ","./flags.png":"0y78","./germany.png":"nmis","./france.png":"EoMB","./japan.png":"rWpn","./italy.png":"QS2I","./poland.png":"+N5C","./sweden.png":"kaP4","./uk.png":"JedR","./ussr.png":"2P5y","./usa.png":"NqyB"}],"I1kJ":[function(require,module,exports) {
 module.exports={nationList:"_nationList_5287e",nationInput:"_nationInput_5287e",nationItem:"_nationItem_5287e",nationImg:"_nationImg_5287e"};
 },{}],"Y2/Y":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=l;var e=require("../framework"),t=n(require("../assets/flags/*.png")),a=require("./GetVehicleNation.css");function n(e){return e&&e.__esModule?e:{default:e}}function l({selectNation:n,nationsList:l,addToSelectNationList:s,deleteFromSelectNationList:c}){return void 0!==l?(0,e.createElement)(e.createFragment,null,(0,e.createElement)("div",{class:a.nationList},Object.keys(l).map((i,r)=>(0,e.createElement)("div",null,(0,e.createElement)("input",{class:a.nationInput,id:`nation${r}`,type:"checkbox","data-value":i,checked:!!n.includes(i),onclick:e=>{const t=e.target.dataset.value;n.includes(t)?c(t):s(t)}}),(0,e.createElement)("label",{class:a.nationItem,For:`nation${r}`},(0,e.createElement)("img",{class:a.nationImg,src:t.default[i],alt:`${l[i]}`}),(0,e.createElement)("span",null,`${l[i]}`)))))):""}
@@ -103,4 +103,4 @@ module.exports={infoWrap:"_infoWrap_388d6",mainWrap:"_mainWrap_388d6"};
 },{"../framework":"SDFd","./Header":"RzfG","./Footer":"9f+Z","./GetInfoWrap":"hOl3","./GetFilterWrap":"O/6+","./App.css":"/0Na"}],"Focm":[function(require,module,exports) {
 "use strict";var e=require("./framework"),t=r(require("./components/App"));function r(e){return e&&e.__esModule?e:{default:e}}module.hot&&module.hot.accept(),(0,e.render)(t.default,document.getElementById("app-root"));
 },{"./framework":"SDFd","./components/App":"le+d"}]},{},["Focm"], null)
-//# sourceMappingURL=src.30a6d542.js.map
+//# sourceMappingURL=src.4525dfb8.js.map
