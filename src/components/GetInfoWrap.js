@@ -1,14 +1,11 @@
-/** @jsx createElement */
-/*** @jsxFrag createFragment */
-import { createElement, createFragment, useEffect, useState } from '../framework';
+import React, { useState, useEffect } from 'react';
 import { loadData } from '../data';
 import GetInfoUser from './GetInfoUser';
 import GetCompareList from './GetCompareList';
 import style from './GetInfoWrap.css';
-import { isEmptyObject } from '../utils';
 
 export default function GetInfoWrap({ selectLanguage, compareList, setCompareList }) {
-  const [status, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [nickname, setNickname] = useState(null);
   const [userID, setUserID] = useState(null);
@@ -16,8 +13,18 @@ export default function GetInfoWrap({ selectLanguage, compareList, setCompareLis
   const [compareData, setCompareData] = useState({});
   const [modalCompareStatus, setModalCompareStatus] = useState(false);
   const [modalUserStatus, setModalUserStatus] = useState(false);
+  const onKeyPress = event => {
+    const {
+      key,
+      target: { value },
+    } = event;
+    if (key === 'Enter') {
+      setNickname(value);
+    }
+  };
 
   useEffect(() => {
+    setIsLoading(true);
     if (nickname) {
       loadData('account/list', { search: nickname })
         .then(data => {
@@ -37,6 +44,7 @@ export default function GetInfoWrap({ selectLanguage, compareList, setCompareLis
   }, [nickname]);
 
   useEffect(() => {
+    setIsLoading(true);
     if (userID) {
       loadData('account/info', { account_id: userID })
         .then(data => {
@@ -52,6 +60,7 @@ export default function GetInfoWrap({ selectLanguage, compareList, setCompareLis
   }, [userID]);
 
   useEffect(() => {
+    setIsLoading(true);
     if (compareList.length != 0) {
       loadData('encyclopedia/vehicles', { tank_id: compareList.join(', ') })
         .then(data => {
@@ -68,28 +77,23 @@ export default function GetInfoWrap({ selectLanguage, compareList, setCompareLis
 
   return (
     <>
-      <div class={style.user}>
-        <a
-          class={style.userLink}
-          onclick={() => {
-            setModalUserStatus(!modalUserStatus);
-            modalUserStatus ? setUserData({}) : null;
-          }}
-        ></a>
-        <div class={`${style.userWrap} modalUser ${modalUserStatus ? style.modalUserActive : ''}`}>
-          <input
-            class={style.userSearch}
-            type="text"
-            value={isEmptyObject(userData) ? nickname : ''}
-            onchange={event => setNickname(event.target.value)}
-          />
-          <GetInfoUser selectLanguage={selectLanguage} userData={userData} />
+      <div className={style.user}>
+        <a className={style.userLink} onClick={setModalUserStatus(!modalUserStatus)}></a>
+        <div
+          className={`${style.userWrap} modalUser ${modalUserStatus ? style.modalUserActive : ''}`}
+        >
+          <input className={style.userSearch} type="text" onKeyPress={event => onKeyPress(event)} />
+          <GetInfoUser isLoading={isLoading} selectLanguage={selectLanguage} userData={userData} />
         </div>
       </div>
-      <div class={style.compare}>
-        <a class={style.compareLink} onclick={() => setModalCompareStatus(true)}></a>
-        <div class={`${style.modal} modalCompare ${modalCompareStatus ? style.modalActive : ''}`}>
+      <div className={style.compare}>
+        <a className={style.compareLink} onClick={() => setModalCompareStatus(true)}></a>
+        <div
+          className={`${style.modal} modalCompare ${modalCompareStatus ? style.modalActive : ''}`}
+        >
           <GetCompareList
+            error={error}
+            isLoading={isLoading}
             selectLanguage={selectLanguage}
             compareData={compareData}
             setCompareList={setCompareList}

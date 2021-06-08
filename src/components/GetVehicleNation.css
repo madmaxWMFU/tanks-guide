@@ -1,3 +1,20 @@
+.nationWrap {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  padding: 10px 4px;
+}
+
+.nationTitle {
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 20px;
+}
+
 .nationList {
   display: flex;
   flex-wrap: wrap;
@@ -44,11 +61,25 @@
 .nationImg {
   height: 26px;
   width: 41px;
-  margin-bottom: 5px;
+  margin: 10px;
   z-index: -1;
 }
 
+.loadWrap {
+  text-align: center;
+  margin: 40px;
+  color: #fff;
+}
+
 @media (max-width: 600px) {
+  .nationWrap {
+    width: 100%;
+  }
+
+  .nationTitle {
+    margin: 5px;
+  }
+
   .nationList {
     width: 100%;
   }

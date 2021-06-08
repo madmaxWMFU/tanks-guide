@@ -1,34 +1,32 @@
-/** @jsx createElement */
-/*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework';
+import React from 'react';
 import style from './Footer.css';
 
-function Footer() {
+export default function Footer() {
   return (
     <>
-      <footer class={style.footer}>
-        <ul class={style.footerList}>
-          <li class={style.footerItem}>
+      <footer className={style.footer}>
+        <ul className={style.footerList}>
+          <li className={style.footerItem}>
             <a
-              class={`${style.footerLink} ${style.github}`}
+              className={`${style.footerLink} ${style.github}`}
               href="https://github.com/madmaxWMFU"
               target="_blank"
             >
               Create by madmaxWMFU
             </a>
           </li>
-          <li class={style.footerItem}>
+          <li className={style.footerItem}>
             <a
-              class={`${style.footerLink} ${style.wot}`}
+              className={`${style.footerLink} ${style.wot}`}
               href="https://worldoftanks.ru/"
               target="_blank"
             >
               Main site WOT
             </a>
           </li>
-          <li class={style.footerItem}>
+          <li className={style.footerItem}>
             <a
-              class={`${style.footerLink} ${style.wargaming}`}
+              className={`${style.footerLink} ${style.wargaming}`}
               href="https://developers.wargaming.net/"
               target="_blank"
             >
@@ -40,5 +38,3 @@ function Footer() {
     </>
   );
 }
-
-export default Footer;

@@ -1,3 +1,11 @@
+.vehicleWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 .searchTypeTitle {
   color: #fff;
   margin: 12px;
@@ -8,6 +16,12 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
+}
+
+.loadWrap {
+  text-align: center;
+  margin: 40px;
+  color: #fff;
 }
 
 .vehicleItem {
@@ -144,6 +158,12 @@
 }
 
 @media (max-width: 600px) {
+  .vehicleWrap {
+    border-top: solid 1px #828282;
+    border-left: none;
+    border-right: none;
+  }
+
   .vehicleItem {
     margin: 10px auto;
   }

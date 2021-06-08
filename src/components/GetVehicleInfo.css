@@ -188,7 +188,7 @@
 }
 
 .modalContent > div {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .modalContent > div > h2 {
@@ -205,31 +205,23 @@
 
 @media (max-width: 900px) {
   .modalBody {
-    margin: 40px auto;
+    margin: 30px auto;
     width: 90%;
   }
 
   .modalWrap {
     flex-direction: column;
-    padding: 0 25px;
+    padding: 0;
   }
 }
 
 @media (max-width: 600px) {
-  .modalBody {
-    margin: 60px auto;
-  }
-
   .modalContent {
     margin: 0;
   }
 
   .modalWrap {
     padding: 0;
-  }
-
-  .modalContent > div {
-    margin-bottom: 10px;
   }
 
   .vehicleItem {

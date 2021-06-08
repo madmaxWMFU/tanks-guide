@@ -46,6 +46,11 @@ export const languageList = {
       max_damage: 'Максимальный урон за бой',
       max_frags: 'Максимум уничтожено за бой',
     },
+    status: {
+      errorData: 'Ошибка',
+      loadData: 'Загрузка...',
+      nullData: 'Нет данных',
+    },
   },
   en: {
     nation: 'Nation',
@@ -93,6 +98,11 @@ export const languageList = {
       hits_percents: 'Hit percentage',
       max_damage: 'Maximum damage per battle',
       max_frags: 'Most destroyed in a battle',
+    },
+    status: {
+      errorData: 'Error',
+      loadData: 'Loading...',
+      nullData: 'There is no data',
     },
   },
   fr: {
@@ -142,6 +152,11 @@ export const languageList = {
       max_damage: 'Dégâts maximum par bataille',
       max_frags: 'La plupart détruit dans une bataille',
     },
+    status: {
+      errorData: 'Erreur',
+      loadData: 'Chargement...',
+      nullData: 'Pas de données',
+    },
   },
   de: {
     nation: 'Nation',
@@ -190,6 +205,11 @@ export const languageList = {
       max_damage: 'Maximaler Schaden pro Kampf',
       max_frags: 'Die meisten in einer Schlacht zerstört',
     },
+    status: {
+      errorData: 'Error',
+      loadData: 'Wird geladen...',
+      nullData: 'Keine Daten',
+    },
   },
   'zh-cn': {
     nation: '国家',
@@ -200,7 +220,7 @@ export const languageList = {
       armor: '活力',
       hp: '力量',
       hull: '船体装甲（mm)',
-      turret: '炮塔装甲（mm',
+      turret: '炮塔装甲（mm)',
       weight: '重量（公斤',
       ammo: '火力',
       damage: '损害',
@@ -237,6 +257,11 @@ export const languageList = {
       hits_percents: '命中率',
       max_damage: '每場戰鬥的最大傷害',
       max_frags: '在戰鬥中被摧毀最多',
+    },
+    status: {
+      errorData: '错误',
+      loadData: '加载中...',
+      notData: '没有数据',
     },
   },
 };
