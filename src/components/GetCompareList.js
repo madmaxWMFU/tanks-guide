@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import LanguageContext from '../context';
+import { LanguageContext } from '../context';
 import { languageList } from '../data';
 import { closeModal, isEmptyObject } from '../utils';
 import style from './GetCompareList.css';
@@ -12,7 +12,6 @@ export default function getCompareList({
 }) {
   const { selectLanguage } = useContext(LanguageContext);
   const { modal } = languageList[selectLanguage];
-
   if (!isEmptyObject(compareData)) {
     return (
       <>
@@ -104,7 +103,7 @@ export default function getCompareList({
           className={style.modalFooterBtn}
           onClick={event => {
             closeModal(event.target, 'modalCompare');
-            setCompareData({});
+            // setCompareData({});
             setCompareList([]);
           }}
         >

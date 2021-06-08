@@ -6,7 +6,6 @@ import style from './GetVehicleNation.css';
 
 export default function GetVehicleNations({
   error,
-  isLoading,
   nationData,
   selectNation,
   addToSelectNationList,
@@ -15,19 +14,11 @@ export default function GetVehicleNations({
   const { selectLanguage } = useContext(LanguageContext);
   const {
     nation,
-    status: { errorData, loadData },
+    status: { errorData },
   } = languageList[selectLanguage];
 
   if (!nationData) {
     return null;
-  }
-
-  if (isLoading) {
-    return (
-      <div className={style.loadWrap}>
-        <span>{loadData}</span>
-      </div>
-    );
   }
 
   if (error) {

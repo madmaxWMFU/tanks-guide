@@ -143,7 +143,7 @@ export default function GetVehicleInfo({
           </div>
           <div>
             <h2>{modal.crew}</h2>
-            <p>
+            <p className={style.whiteSpace}>
               {vehicle.crew
                 .map((member, key) => {
                   return `${++key}. ${Object.values(member.roles).join('-')}`;

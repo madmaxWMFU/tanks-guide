@@ -23,8 +23,6 @@ export default function App() {
     setVehicleId,
     modalVehicleStatus,
     setModalVehicleStatus,
-    compareList,
-    setCompareList,
     error,
     isLoading,
     addToSelectNationList,
@@ -32,19 +30,33 @@ export default function App() {
     addToSelectTypeList,
     deleteFromSelectTypeList,
     addToCompareList,
+    compareData,
+    modalCompareStatus,
+    setCompareList,
+    setCompareData,
+    setModalCompareStatus,
   } = customHook();
 
   return (
     <LanguageContext.Provider value={{ selectLanguage, setLanguage }}>
       <Header />
       <main>
-        <InformationContext.Provider value={{ compareList, setCompareList }}>
-          <div className={style.infoWrap}></div>
+        <InformationContext.Provider
+          value={{
+            compareData,
+            modalCompareStatus,
+            setCompareList,
+            setCompareData,
+            setModalCompareStatus,
+          }}
+        >
+          <div className={style.infoWrap}>
+            <GetInfoWrap />
+          </div>
         </InformationContext.Provider>
         <div className={style.mainWrap}>
           <GetVehicleNations
             error={error}
-            isLoading={isLoading}
             nationData={nationData}
             selectNation={selectNation}
             addToSelectNationList={addToSelectNationList}
@@ -52,7 +64,6 @@ export default function App() {
           />
           <GetVehicleTypes
             error={error}
-            isLoading={isLoading}
             typeData={typeData}
             selectType={selectType}
             addToSelectTypeList={addToSelectTypeList}
@@ -82,9 +93,3 @@ export default function App() {
     </LanguageContext.Provider>
   );
 }
-
-//<GetInfoWrap
-//  selectLanguage={selectLanguage}
-//  compareList={compareList}
-//  setCompareList={setCompareList}
-///>

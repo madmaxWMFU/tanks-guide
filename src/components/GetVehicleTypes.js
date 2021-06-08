@@ -6,7 +6,6 @@ import style from './GetVehicleTypes.css';
 
 export default function GetVehicleTypes({
   error,
-  isLoading,
   typeData,
   selectType,
   addToSelectTypeList,
@@ -15,19 +14,11 @@ export default function GetVehicleTypes({
   const { selectLanguage } = useContext(LanguageContext);
   const {
     type,
-    status: { errorData, loadData },
+    status: { errorData },
   } = languageList[selectLanguage];
 
   if (!typeData) {
     return null;
-  }
-
-  if (isLoading) {
-    return (
-      <div className={style.loadWrap}>
-        <span>{loadData}</span>
-      </div>
-    );
   }
 
   if (error) {
