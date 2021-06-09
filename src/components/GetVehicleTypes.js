@@ -32,10 +32,10 @@ export default function GetVehicleTypes({
   return (
     <div className={style.typeWrap}>
       <h2 className={style.typeTitle}>{type}</h2>
-      <div className={style.typeList}>
+      <ul className={style.typeList}>
         {Object.keys(typeData).map((type, key) => {
           return (
-            <div key={key}>
+            <li key={key}>
               <input
                 className={style.typeInput}
                 id={`type${key}`}
@@ -55,10 +55,10 @@ export default function GetVehicleTypes({
                 <img className={style.typeImg} src={imgTypeList[type]} alt={`${typeData[type]}`} />
                 <span>{`${typeData[type]}`}</span>
               </label>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }

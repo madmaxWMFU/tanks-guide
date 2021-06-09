@@ -32,10 +32,10 @@ export default function GetVehicleNations({
   return (
     <div className={style.nationWrap}>
       <h2 className={style.nationTitle}>{nation}</h2>
-      <div className={style.nationList}>
+      <ul className={style.nationList}>
         {Object.keys(nationData).map((nation, key) => {
           return (
-            <div key={key}>
+            <li key={key}>
               <input
                 className={style.nationInput}
                 id={`nation${key}`}
@@ -59,10 +59,10 @@ export default function GetVehicleNations({
                 />
                 <span>{`${nationData[nation]}`}</span>
               </label>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }

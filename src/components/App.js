@@ -33,8 +33,12 @@ export default function App() {
     compareData,
     modalCompareStatus,
     setCompareList,
+    userData,
+    modalUserStatus,
+    setModalUserStatus,
     setCompareData,
     setModalCompareStatus,
+    onKeyPress,
   } = customHook();
 
   return (
@@ -48,6 +52,11 @@ export default function App() {
             setCompareList,
             setCompareData,
             setModalCompareStatus,
+            userData,
+            modalUserStatus,
+            setModalUserStatus,
+            onKeyPress,
+            isLoading,
           }}
         >
           <div className={style.infoWrap}>

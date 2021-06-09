@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { LanguageContext, InformationContext } from '../context';
 import { languageList } from '../data';
 import { getDateFromUnixTimestamp } from '../utils';
 
-export default function GetInfoUser({ error, isLoading, selectLanguage, userData }) {
+export default function GetInfoUser() {
+  const { selectLanguage } = useContext(LanguageContext);
+  const { isLoading, userData } = useContext(InformationContext);
   const { userStat, status } = languageList[selectLanguage];
 
   return Object.values(userData).map((user, key) => {
-    if (isLoading) {
-      return (
-        <div key={key}>
-          <span>{status.load}</span>
-        </div>
-      );
-    }
+    // if (isLoading) {
+    //   return (
+    //     <div key={key}>
+    //       <span>{status.load}</span>
+    //     </div>
+    //   );
+    // }
 
     const {
       created_at,

@@ -44,13 +44,12 @@
 
 .typeInput:checked ~ .typeItem {
   border-radius: 14px;
-  border: solid 1px;
   box-shadow: 0px 0px 10px 5px #cc2331;
 }
 
-.typeItem:hover {
+.typeItem:hover,
+.typeInput:focus ~ .typeItem {
   border-radius: 14px;
-  border: solid 1px;
   box-shadow: 0px 0px 10px 5px #676560;
 }
 
@@ -67,6 +66,7 @@
 
   .typeWrap {
     border-top: solid 1px #828282;
+    border-bottom: solid 1px #828282;
     border-left: none;
     border-right: none;
   }

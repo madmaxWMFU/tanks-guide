@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../context';
 import { languageList, getFilterList } from '../data';
-import { getRomeNumber } from '../utils';
+import { getRomeNumber, isEmptyObject } from '../utils';
+import mainImage from '../assets/page/main.jpeg';
 import style from './GetVehicleList.css';
 
 export default function GetVehicleList({
@@ -15,6 +16,7 @@ export default function GetVehicleList({
   const {
     typeTank,
     status: { errorData, loadData },
+    startPage: { title, text },
   } = languageList[selectLanguage];
 
   if (isLoading) {
@@ -33,6 +35,16 @@ export default function GetVehicleList({
     );
   }
 
+  if (!isEmptyObject(searchData)) {
+    return (
+      <div className={style.mainWrap}>
+        <h1 className={style.mainTitle}>{title}</h1>
+        <p className={style.mainText}>{text}</p>
+        <img className={style.mainImage} src={mainImage} alt="main image" />
+      </div>
+    );
+  }
+
   return (
     <div className={style.vehicleWrap}>
       {Object.entries(getFilterList(searchData)).map(([type, list], key) => {
@@ -40,43 +52,47 @@ export default function GetVehicleList({
           return (
             <div key={key} className="searchType">
               <h1 className={style.searchTypeTitle}>{`${typeTank[type]}`}</h1>
-              <div className={style.searchTypeWrap}>
+              <ul className={style.searchTypeWrap}>
                 {list.map((vehicle, key) => {
                   return (
-                    <div key={key} className={style.vehicleItem} data-type="vehicleData">
-                      <span
-                        className={`${style.vehicleType} ${
-                          vehicle.is_premium
-                            ? style[`type-${vehicle.type}--premium`]
-                            : style[`type-${vehicle.type}`]
-                        }`}
-                      >
-                        {getRomeNumber(vehicle.tier)}
-                      </span>
-                      <span
-                        className={`${style.vehicleFlag} ${style[`vehicleFlag-${vehicle.nation}`]}`}
-                      ></span>
-                      <img
-                        className={style.vehicleImg}
-                        src={vehicle.images.big_icon}
-                        alt={vehicle.short_name}
-                        data-id={vehicle.tank_id}
-                        onClick={event => {
-                          setVehicleId(event.target.dataset.id);
-                          setModalVehicleStatus(true);
-                        }}
-                      />
-                      <span
-                        className={`${style.vehicleTitle} ${
-                          vehicle.is_premium ? `${style['vehicleTitle--premium']}` : ''
-                        }`}
-                      >
-                        {vehicle.short_name}
-                      </span>
-                    </div>
+                    <li key={key} className={style.vehicleItem} data-type="vehicleData">
+                      <a href="#">
+                        <span
+                          className={`${style.vehicleType} ${
+                            vehicle.is_premium
+                              ? style[`type-${vehicle.type}--premium`]
+                              : style[`type-${vehicle.type}`]
+                          }`}
+                        >
+                          {getRomeNumber(vehicle.tier)}
+                        </span>
+                        <span
+                          className={`${style.vehicleFlag} ${
+                            style[`vehicleFlag-${vehicle.nation}`]
+                          }`}
+                        ></span>
+                        <img
+                          className={style.vehicleImg}
+                          src={vehicle.images.big_icon}
+                          alt={vehicle.short_name}
+                          data-id={vehicle.tank_id}
+                          onClick={event => {
+                            setVehicleId(event.target.dataset.id);
+                            setModalVehicleStatus(true);
+                          }}
+                        />
+                        <span
+                          className={`${style.vehicleTitle} ${
+                            vehicle.is_premium ? `${style['vehicleTitle--premium']}` : ''
+                          }`}
+                        >
+                          {vehicle.short_name}
+                        </span>
+                      </a>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           );
         }
