@@ -1,0 +1,45 @@
+.nationWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 4px;
+}
+
+.nationTitle {
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 20px;
+}
+
+.nationList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  font-size: 15px;
+  color: #fff;
+  width: 120px;
+  position: relative;
+}
+
+.loadWrap {
+  text-align: center;
+  margin: 40px;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .nationWrap {
+    width: 100%;
+  }
+
+  .nationTitle {
+    margin: 5px;
+  }
+
+  .nationList {
+    width: 100%;
+  }
+}

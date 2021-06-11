@@ -1,37 +1,82 @@
-/** @jsx createElement */
-/*** @jsxFrag createFragment */
-import { createElement, createFragment } from '../framework';
+import React, { useContext } from 'react';
+import { LanguageContext, InformationContext } from '../context';
 import { languageList } from '../data';
 import { closeModal, isEmptyObject } from '../utils';
-import style from './GetCompareList.css';
+import style from './CompareList.css';
 
-export default function getCompareList({
-  selectLanguage,
-  compareData,
-  setCompareList,
-  setCompareData,
-  setModalCompareStatus,
-}) {
-  const { modal } = languageList[selectLanguage];
+export default function CompareList() {
+  const { selectLanguage } = useContext(LanguageContext);
+  const {
+    isCompareLoading,
+    errorCompare,
+    compareData,
+    setCompareList,
+    setCompareData,
+    modalCompareStatus,
+    setModalCompareStatus,
+  } = useContext(InformationContext);
+  const {
+    modal,
+    status: { loadData, errorData },
+  } = languageList[selectLanguage];
 
-  if (isEmptyObject(compareData)) {
+  if (!isEmptyObject(compareData)) {
     return (
-      <div class={style.modalBody}>
-        <div class={style.modalHeader}>
+      <div className={`${style.modal} modalCompare ${modalCompareStatus ? style.modalActive : ''}`}>
+        <div className={style.modalBody}>
+          <div className={style.modalHeader}>
+            <button
+              className={style.modalHeaderBtn}
+              onClick={event => {
+                closeModal(event.target, 'modalCompare');
+                setModalCompareStatus(false);
+              }}
+            >
+              x
+            </button>
+          </div>
+          <div className={style.modalContent}>
+            <p className={style.textCenter}>{modal.emptyList}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isCompareLoading) {
+    return (
+      <div className={style.loadWrap}>
+        <span>{loadData}</span>
+      </div>
+    );
+  }
+
+  if (errorCompare) {
+    return (
+      <div className={style.loadWrap}>
+        {errorData}: {typeof errorCompare === 'object' ? errorCompare.toString() : errorCompare}
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${style.modal} modalCompare ${modalCompareStatus ? style.modalActive : ''}`}>
+      <div className={style.modalBody}>
+        <div className={style.modalHeader}>
           <button
-            class={style.modalHeaderBtn}
-            onclick={e => {
-              closeModal(e.target, 'modalCompare');
+            className={style.modalHeaderBtn}
+            onClick={event => {
+              closeModal(event.target, 'modalCompare');
               setModalCompareStatus(false);
             }}
           >
             x
           </button>
         </div>
-        <div class={style.modalContent}>
-          <div class={style.modalCompareList}>
+        <div className={style.modalContent}>
+          <div className={style.modalCompareList}>
             <div>
-              <div class={style.emptyWrap}></div>
+              <div className={style.emptyWrap}></div>
               <div>{modal.name}</div>
               <div>{modal.hp}</div>
               <div>{modal.hull}</div>
@@ -47,11 +92,11 @@ export default function getCompareList({
               <div>{modal.speed_forward}</div>
               <div>{modal.speed_backward}</div>
             </div>
-            {Object.values(compareData).map(vehicle => {
+            {Object.values(compareData).map((vehicle, key) => {
               return (
-                <div>
+                <div key={key}>
                   <img
-                    class={style.vehicleImg}
+                    className={style.vehicleImg}
                     src={vehicle.images.big_icon}
                     alt={vehicle.short_name}
                   />
@@ -78,11 +123,12 @@ export default function getCompareList({
             })}
           </div>
         </div>
-        <div class={style.modalFooter}>
+        <div className={style.modalFooter}>
           <button
-            class={style.modalFooterBtn}
-            onclick={event => {
+            className={style.modalFooterBtn}
+            onClick={event => {
               closeModal(event.target, 'modalCompare');
+              setModalCompareStatus(false);
               setCompareData({});
               setCompareList([]);
             }}
@@ -91,27 +137,6 @@ export default function getCompareList({
           </button>
         </div>
       </div>
-    );
-  } else {
-    return (
-      <>
-        <div class={style.modalBody}>
-          <div class={style.modalHeader}>
-            <button
-              class={style.modalHeaderBtn}
-              onclick={e => {
-                closeModal(e.target, 'modalCompare');
-                setModalCompareStatus(false);
-              }}
-            >
-              x
-            </button>
-          </div>
-          <div class={style.modalContent}>
-            <p class={style.textCenter}>{modal.emptyList}</p>
-          </div>
-        </div>
-      </>
-    );
-  }
+    </div>
+  );
 }

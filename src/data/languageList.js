@@ -1,7 +1,7 @@
 export const languageList = {
   ru: {
-    nation: 'Нация',
-    type: 'Вид',
+    nationTitle: 'Нация',
+    typeTitle: 'Вид',
     modal: {
       emptyList: 'Список сравнений пуст',
       name: 'Название',
@@ -46,10 +46,20 @@ export const languageList = {
       max_damage: 'Максимальный урон за бой',
       max_frags: 'Максимум уничтожено за бой',
     },
+    status: {
+      errorData: 'Ошибка',
+      loadData: 'Загрузка...',
+      nullData: 'Нет данных',
+    },
+    startPage: {
+      title: 'Привет, юный танкист!',
+      text:
+        'Вы любите играть в WOT или просто любите танки, тогда это место для вас. Все основные танки стран мира, которые состояли на вооружении или находились в стадии разработки, их тактико-технические характеристики и сравнение. Для игроков WOT есть небольшая статистика их достижений. Исследуй и играй! Удачи в бою!',
+    },
   },
   en: {
-    nation: 'Nation',
-    type: 'Type',
+    nationTitle: 'Nation',
+    typeTitle: 'Type',
     modal: {
       emptyList: 'Comparison list is empty',
       name: 'Name',
@@ -94,10 +104,20 @@ export const languageList = {
       max_damage: 'Maximum damage per battle',
       max_frags: 'Most destroyed in a battle',
     },
+    status: {
+      errorData: 'Error',
+      loadData: 'Loading...',
+      nullData: 'There is no data',
+    },
+    startPage: {
+      title: 'Greetings, young tanker!',
+      text:
+        'Do you like to play WOT or are simply fond of tanks, then this is the place for you. All the main tanks of the countries of the world that were in service or were at the stages of development, their performance characteristics and comparison. For WOT players, there is a small statistic of their achievements. Explore and play! Good luck in battle!',
+    },
   },
   fr: {
-    nation: 'Nation',
-    type: 'Vue',
+    nationTitle: 'Nation',
+    typeTitle: 'Vue',
     modal: {
       emptyList: 'La liste de comparaison est vide',
       name: 'Nom',
@@ -142,10 +162,20 @@ export const languageList = {
       max_damage: 'Dégâts maximum par bataille',
       max_frags: 'La plupart détruit dans une bataille',
     },
+    status: {
+      errorData: 'Erreur',
+      loadData: 'Chargement...',
+      nullData: 'Pas de données',
+    },
+    startPage: {
+      title: 'Salut jeune tankiste !',
+      text:
+        'Aimez-vous jouer à WOT ou aimez-vous simplement les tanks, alors cet endroit est fait pour vous. Tous les principaux chars des pays du monde, qui étaient en service ou en cours de développement, leurs caractéristiques tactiques et techniques et leur comparaison. Pour les joueurs de WOT, il existe une petite statistique de leurs réalisations. Explorez et jouez ! Bonne chance au combat !',
+    },
   },
   de: {
-    nation: 'Nation',
-    type: 'Aussicht',
+    nationTitle: 'Nation',
+    typeTitle: 'Aussicht',
     modal: {
       emptyList: 'Vergleichsliste ist leer',
       name: 'Name',
@@ -190,17 +220,27 @@ export const languageList = {
       max_damage: 'Maximaler Schaden pro Kampf',
       max_frags: 'Die meisten in einer Schlacht zerstört',
     },
+    status: {
+      errorData: 'Error',
+      loadData: 'Wird geladen...',
+      nullData: 'Keine Daten',
+    },
+    startPage: {
+      title: 'Hallo junger Tanker!',
+      text:
+        'Lieben Sie es, WOT zu spielen oder einfach nur Panzer zu lieben, dann ist dies der richtige Ort für Sie. Alle Hauptpanzer der Länder der Welt, die im Einsatz waren oder sich in der Entwicklung befanden, ihre taktischen und technischen Eigenschaften und ihr Vergleich. Für WOT-Spieler gibt es eine kleine Statistik ihrer Leistungen. Erforsche und spiele! Viel Glück im Kampf!',
+    },
   },
   'zh-cn': {
-    nation: '国家',
-    type: '看法',
+    nationTitle: '国家',
+    typeTitle: '看法',
     modal: {
       emptyList: '比較列表為空',
       name: '名稱',
       armor: '活力',
       hp: '力量',
       hull: '船体装甲（mm)',
-      turret: '炮塔装甲（mm',
+      turret: '炮塔装甲（mm)',
       weight: '重量（公斤',
       ammo: '火力',
       damage: '损害',
@@ -237,6 +277,16 @@ export const languageList = {
       hits_percents: '命中率',
       max_damage: '每場戰鬥的最大傷害',
       max_frags: '在戰鬥中被摧毀最多',
+    },
+    status: {
+      errorData: '错误',
+      loadData: '加载中...',
+      notData: '没有数据',
+    },
+    startPage: {
+      title: '你好年輕的油輪！',
+      text:
+        '你喜歡玩 WOT 還是只喜歡坦克，那麼這就是你的地方。 世界各國所有在役或正在研製的主坦克，它們的戰術和技術特點和比較。 對於 WOT 玩家，他們的成就有一個小的統計數據。 探索和玩耍！ 祝你戰鬥順利',
     },
   },
 };

@@ -1,37 +1,103 @@
-/** @jsx createElement */
-/*** @jsxFrag createFragment */
-import { createElement, createFragment, useState } from '../framework';
+import React from 'react';
+import customHook from '../customHooks';
+import { LanguageContext, InformationContext } from '../context';
 import Header from './Header';
+import InfoWrap from './InfoWrap';
+import NationsList from './NationsList';
+import TypesList from './TypesList';
+import VehicleList from './VehicleList';
+import VehicleInfo from './VehicleInfo';
 import Footer from './Footer';
-import GetInfoWrap from './GetInfoWrap';
-import GetFilterWrap from './GetFilterWrap';
-import { infoWrap, mainWrap } from './App.css';
+import style from './App.css';
 
-function App() {
-  const [selectLanguage, setLanguage] = useState('ru');
-  const [compareList, setCompareList] = useState([]);
-  const addToCompareList = id => {
-    setCompareList([...compareList, id]);
-  };
+export default function App() {
+  const {
+    selectLanguage,
+    setLanguage,
+    errorGeneral,
+    selectNation,
+    nationData,
+    onChangeNation,
+    selectType,
+    typeData,
+    onChangeType,
+    isSearchLoading,
+    errorSearch,
+    searchData,
+    vehicleId,
+    modalVehicleStatus,
+    onClickVehicle,
+    isUserLoading,
+    errorUser,
+    userData,
+    modalUserStatus,
+    setModalUserStatus,
+    searchUser,
+    toggleUserInfoModule,
+    isCompareLoading,
+    errorCompare,
+    compareData,
+    setCompareData,
+    setCompareList,
+    modalCompareStatus,
+    setModalCompareStatus,
+    afterCloseModalVehicle,
+  } = customHook();
 
   return (
-    <>
-      <Header setLanguage={setLanguage} />
+    <LanguageContext.Provider value={{ selectLanguage, setLanguage }}>
+      <Header />
       <main>
-        <div class={infoWrap}>
-          <GetInfoWrap
-            selectLanguage={selectLanguage}
-            compareList={compareList}
-            setCompareList={setCompareList}
+        <div className={style.infoWrap}>
+          <InformationContext.Provider
+            value={{
+              isUserLoading,
+              errorUser,
+              userData,
+              modalUserStatus,
+              setModalUserStatus,
+              setModalCompareStatus,
+              searchUser,
+              toggleUserInfoModule,
+              isCompareLoading,
+              errorCompare,
+              compareData,
+              setCompareData,
+              setCompareList,
+              modalCompareStatus,
+            }}
+          >
+            <InfoWrap />
+          </InformationContext.Provider>
+        </div>
+        <div className={style.mainWrap}>
+          <NationsList
+            errorGeneral={errorGeneral}
+            nationData={nationData}
+            selectNation={selectNation}
+            onChangeNation={onChangeNation}
+          />
+          <TypesList
+            errorGeneral={errorGeneral}
+            typeData={typeData}
+            selectType={selectType}
+            onChangeType={onChangeType}
+          />
+          <VehicleList
+            errorSearch={errorSearch}
+            isSearchLoading={isSearchLoading}
+            searchData={searchData}
+            onClickVehicle={onClickVehicle}
           />
         </div>
-        <div class={mainWrap}>
-          <GetFilterWrap selectLanguage={selectLanguage} addToCompareList={addToCompareList} />
-        </div>
+        <VehicleInfo
+          modalVehicleStatus={modalVehicleStatus}
+          vehicleId={vehicleId}
+          vehicle={searchData[vehicleId]}
+          afterCloseModalVehicle={afterCloseModalVehicle}
+        />
       </main>
       <Footer />
-    </>
+    </LanguageContext.Provider>
   );
 }
-
-export default App;
