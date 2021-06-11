@@ -3,20 +3,31 @@ import { LanguageContext, InformationContext } from '../context';
 import { languageList } from '../data';
 import { getDateFromUnixTimestamp } from '../utils';
 
-export default function GetInfoUser() {
+export default function AccountInformation() {
   const { selectLanguage } = useContext(LanguageContext);
-  const { isLoading, userData } = useContext(InformationContext);
-  const { userStat, status } = languageList[selectLanguage];
+  const { isUserLoading, errorUser, userData } = useContext(InformationContext);
+  const {
+    userStat,
+    status: { loadData, errorData },
+  } = languageList[selectLanguage];
+
+  if (isUserLoading) {
+    return (
+      <div>
+        <span>{loadData}</span>
+      </div>
+    );
+  }
+
+  if (errorUser) {
+    return (
+      <div>
+        {errorData}: {typeof errorUser === 'object' ? errorUser.toString() : errorUser}
+      </div>
+    );
+  }
 
   return Object.values(userData).map((user, key) => {
-    // if (isLoading) {
-    //   return (
-    //     <div key={key}>
-    //       <span>{status.load}</span>
-    //     </div>
-    //   );
-    // }
-
     const {
       created_at,
       global_rating,

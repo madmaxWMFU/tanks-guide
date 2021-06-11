@@ -1,7 +1,7 @@
 export const languageList = {
   ru: {
-    nation: 'Нация',
-    type: 'Вид',
+    nationTitle: 'Нация',
+    typeTitle: 'Вид',
     modal: {
       emptyList: 'Список сравнений пуст',
       name: 'Название',
@@ -58,8 +58,8 @@ export const languageList = {
     },
   },
   en: {
-    nation: 'Nation',
-    type: 'Type',
+    nationTitle: 'Nation',
+    typeTitle: 'Type',
     modal: {
       emptyList: 'Comparison list is empty',
       name: 'Name',
@@ -116,8 +116,8 @@ export const languageList = {
     },
   },
   fr: {
-    nation: 'Nation',
-    type: 'Vue',
+    nationTitle: 'Nation',
+    typeTitle: 'Vue',
     modal: {
       emptyList: 'La liste de comparaison est vide',
       name: 'Nom',
@@ -174,8 +174,8 @@ export const languageList = {
     },
   },
   de: {
-    nation: 'Nation',
-    type: 'Aussicht',
+    nationTitle: 'Nation',
+    typeTitle: 'Aussicht',
     modal: {
       emptyList: 'Vergleichsliste ist leer',
       name: 'Name',
@@ -232,8 +232,8 @@ export const languageList = {
     },
   },
   'zh-cn': {
-    nation: '国家',
-    type: '看法',
+    nationTitle: '国家',
+    typeTitle: '看法',
     modal: {
       emptyList: '比較列表為空',
       name: '名稱',

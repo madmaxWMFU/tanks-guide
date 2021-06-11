@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import { LanguageContext } from '../context';
 import { languageList } from '../data';
 import { getRomeNumber, closeModal } from '../utils';
-import style from './GetVehicleInfo.css';
+import style from './VehicleInfo.css';
 
-export default function GetVehicleInfo({
-  vehicle,
-  setVehicleId,
-  setModalVehicleStatus,
+export default function VehicleInfo({
+  modalVehicleStatus,
   vehicleId,
-  addToCompareList,
+  vehicle,
+  afterCloseModalVehicle,
 }) {
   const { selectLanguage } = useContext(LanguageContext);
   const {
@@ -22,15 +21,14 @@ export default function GetVehicleInfo({
   }
 
   return (
-    <>
+    <div className={`${style.modal} modalVehicle ${modalVehicleStatus ? style.modalActive : ''}`}>
       <div className={style.modalBody}>
         <div className={style.modalHeader}>
           <button
             className={style.modalHeaderBtn}
             onClick={event => {
               closeModal(event.target, 'modalVehicle');
-              setVehicleId(null);
-              setModalVehicleStatus(false);
+              afterCloseModalVehicle(event.target.dataset.id);
             }}
           >
             x
@@ -180,15 +178,13 @@ export default function GetVehicleInfo({
             data-id={vehicleId}
             onClick={event => {
               closeModal(event.target, 'modalVehicle');
-              setVehicleId(null);
-              setModalVehicleStatus(false);
-              addToCompareList(event.target.dataset.id);
+              afterCloseModalVehicle(event.target.dataset.id);
             }}
           >
             {modal.btn_add_compare}
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

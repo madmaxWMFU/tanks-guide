@@ -2,18 +2,23 @@ import React, { useContext } from 'react';
 import { LanguageContext, InformationContext } from '../context';
 import { languageList } from '../data';
 import { closeModal, isEmptyObject } from '../utils';
-import style from './GetCompareList.css';
+import style from './CompareList.css';
 
-export default function getCompareList() {
+export default function CompareList() {
+  const { selectLanguage } = useContext(LanguageContext);
   const {
+    isCompareLoading,
+    errorCompare,
     compareData,
     setCompareList,
     setCompareData,
     modalCompareStatus,
     setModalCompareStatus,
   } = useContext(InformationContext);
-  const { selectLanguage } = useContext(LanguageContext);
-  const { modal } = languageList[selectLanguage];
+  const {
+    modal,
+    status: { loadData, errorData },
+  } = languageList[selectLanguage];
 
   if (!isEmptyObject(compareData)) {
     return (
@@ -34,6 +39,22 @@ export default function getCompareList() {
             <p className={style.textCenter}>{modal.emptyList}</p>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (isCompareLoading) {
+    return (
+      <div className={style.loadWrap}>
+        <span>{loadData}</span>
+      </div>
+    );
+  }
+
+  if (errorCompare) {
+    return (
+      <div className={style.loadWrap}>
+        {errorData}: {typeof errorCompare === 'object' ? errorCompare.toString() : errorCompare}
       </div>
     );
   }

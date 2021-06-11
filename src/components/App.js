@@ -2,11 +2,11 @@ import React from 'react';
 import customHook from '../customHooks';
 import { LanguageContext, InformationContext } from '../context';
 import Header from './Header';
-import GetInfoWrap from './GetInfoWrap';
-import GetVehicleNations from './GetVehicleNations';
-import GetVehicleTypes from './GetVehicleTypes';
-import GetVehicleList from './GetVehicleList';
-import GetVehicleInfo from './GetVehicleInfo';
+import InfoWrap from './InfoWrap';
+import NationsList from './NationsList';
+import TypesList from './TypesList';
+import VehicleList from './VehicleList';
+import VehicleInfo from './VehicleInfo';
 import Footer from './Footer';
 import style from './App.css';
 
@@ -14,89 +14,88 @@ export default function App() {
   const {
     selectLanguage,
     setLanguage,
-    nationData,
-    typeData,
-    searchData,
+    errorGeneral,
     selectNation,
+    nationData,
+    onChangeNation,
     selectType,
+    typeData,
+    onChangeType,
+    isSearchLoading,
+    errorSearch,
+    searchData,
     vehicleId,
-    setVehicleId,
     modalVehicleStatus,
-    setModalVehicleStatus,
-    error,
-    isLoading,
-    addToSelectNationList,
-    deleteFromSelectNationList,
-    addToSelectTypeList,
-    deleteFromSelectTypeList,
-    addToCompareList,
-    compareData,
-    modalCompareStatus,
-    setCompareList,
+    onClickVehicle,
+    isUserLoading,
+    errorUser,
     userData,
     modalUserStatus,
     setModalUserStatus,
+    searchUser,
+    toggleUserInfoModule,
+    isCompareLoading,
+    errorCompare,
+    compareData,
     setCompareData,
+    setCompareList,
+    modalCompareStatus,
     setModalCompareStatus,
-    onKeyPress,
+    afterCloseModalVehicle,
   } = customHook();
 
   return (
     <LanguageContext.Provider value={{ selectLanguage, setLanguage }}>
       <Header />
       <main>
-        <InformationContext.Provider
-          value={{
-            compareData,
-            modalCompareStatus,
-            setCompareList,
-            setCompareData,
-            setModalCompareStatus,
-            userData,
-            modalUserStatus,
-            setModalUserStatus,
-            onKeyPress,
-            isLoading,
-          }}
-        >
-          <div className={style.infoWrap}>
-            <GetInfoWrap />
-          </div>
-        </InformationContext.Provider>
+        <div className={style.infoWrap}>
+          <InformationContext.Provider
+            value={{
+              isUserLoading,
+              errorUser,
+              userData,
+              modalUserStatus,
+              setModalUserStatus,
+              setModalCompareStatus,
+              searchUser,
+              toggleUserInfoModule,
+              isCompareLoading,
+              errorCompare,
+              compareData,
+              setCompareData,
+              setCompareList,
+              modalCompareStatus,
+            }}
+          >
+            <InfoWrap />
+          </InformationContext.Provider>
+        </div>
         <div className={style.mainWrap}>
-          <GetVehicleNations
-            error={error}
+          <NationsList
+            errorGeneral={errorGeneral}
             nationData={nationData}
             selectNation={selectNation}
-            addToSelectNationList={addToSelectNationList}
-            deleteFromSelectNationList={deleteFromSelectNationList}
+            onChangeNation={onChangeNation}
           />
-          <GetVehicleTypes
-            error={error}
+          <TypesList
+            errorGeneral={errorGeneral}
             typeData={typeData}
             selectType={selectType}
-            addToSelectTypeList={addToSelectTypeList}
-            deleteFromSelectTypeList={deleteFromSelectTypeList}
+            onChangeType={onChangeType}
           />
-          <GetVehicleList
-            error={error}
-            isLoading={isLoading}
+          <VehicleList
+            errorSearch={errorSearch}
+            isSearchLoading={isSearchLoading}
             searchData={searchData}
-            setVehicleId={setVehicleId}
-            setModalVehicleStatus={setModalVehicleStatus}
+            onClickVehicle={onClickVehicle}
           />
         </div>
-        <div
-          className={`${style.modal} modalVehicle ${modalVehicleStatus ? style.modalActive : ''}`}
-        >
-          <GetVehicleInfo
-            vehicle={searchData[vehicleId]}
-            setVehicleId={setVehicleId}
-            setModalVehicleStatus={setModalVehicleStatus}
-            vehicleId={vehicleId}
-            addToCompareList={addToCompareList}
-          />
-        </div>
+        <VehicleInfo
+          modalVehicleStatus={modalVehicleStatus}
+          vehicleId={vehicleId}
+          vehicle={searchData[vehicleId]}
+          afterCloseModalVehicle={afterCloseModalVehicle}
+        />
       </main>
       <Footer />
     </LanguageContext.Provider>

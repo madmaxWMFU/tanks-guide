@@ -138,6 +138,12 @@
   margin: 40px auto;
 }
 
+.loadWrap {
+  text-align: center;
+  margin: 40px;
+  color: #fff;
+}
+
 @media (max-width: 900px) {
   .modalBody {
     margin: 40px auto;
