@@ -24,7 +24,7 @@ export default function TypesList({ errorGeneral, typeData, selectType, onChange
   }
 
   return (
-    <div className={style.typeWrap}>
+    <div className={`${style.typeWrap} filter`}>
       <h2 className={style.typeTitle}>{typeTitle}</h2>
       <ul className={style.typeList}>
         {Object.entries(typeData).map((type, key) => (

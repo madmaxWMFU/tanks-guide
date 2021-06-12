@@ -106,6 +106,14 @@ export default function customHook() {
     }
   };
 
+  const toggleFilteWrap = (event, styleRule) => {
+    const filters = Object.values(event.target.parentNode.childNodes).forEach(item => {
+      if (Object.values(item.classList).includes('filter')) {
+        item.classList.toggle(styleRule);
+      }
+    });
+  };
+
   useEffect(() => {
     setGeneralLoading(true);
     loadData('encyclopedia/info', { language: selectLanguage })
@@ -240,5 +248,6 @@ export default function customHook() {
     modalCompareStatus,
     setModalCompareStatus,
     afterCloseModalVehicle,
+    toggleFilteWrap,
   };
 }

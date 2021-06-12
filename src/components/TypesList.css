@@ -29,6 +29,7 @@
 @media (max-width: 600px) {
   .typeWrap {
     width: 100%;
+    display: none;
   }
 
   .typeWrap {

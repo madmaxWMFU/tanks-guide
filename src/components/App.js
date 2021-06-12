@@ -42,6 +42,7 @@ export default function App() {
     modalCompareStatus,
     setModalCompareStatus,
     afterCloseModalVehicle,
+    toggleFilteWrap,
   } = customHook();
 
   return (
@@ -71,18 +72,24 @@ export default function App() {
           </InformationContext.Provider>
         </div>
         <div className={style.mainWrap}>
-          <NationsList
-            errorGeneral={errorGeneral}
-            nationData={nationData}
-            selectNation={selectNation}
-            onChangeNation={onChangeNation}
-          />
-          <TypesList
-            errorGeneral={errorGeneral}
-            typeData={typeData}
-            selectType={selectType}
-            onChangeType={onChangeType}
-          />
+          <div className={style.filterWrap}>
+            <NationsList
+              errorGeneral={errorGeneral}
+              nationData={nationData}
+              selectNation={selectNation}
+              onChangeNation={onChangeNation}
+            />
+            <TypesList
+              errorGeneral={errorGeneral}
+              typeData={typeData}
+              selectType={selectType}
+              onChangeType={onChangeType}
+            />
+            <button
+              className={style.filterBtn}
+              onClick={event => toggleFilteWrap(event, style.filterShow)}
+            ></button>
+          </div>
           <VehicleList
             errorSearch={errorSearch}
             isSearchLoading={isSearchLoading}
