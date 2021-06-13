@@ -74,14 +74,15 @@
 
 @media (max-width: 600px) {
   .footer::after {
-    top: -88px;
+    top: 0px;
     background-size: 215px 380px;
-    height: 300px;
+    height: 260px;
     width: 215px;
   }
 
   .footerList {
-    margin: 0px 10px 0 170px;
+    margin: 0;
+    align-items: center;
   }
 
   .footerItem {

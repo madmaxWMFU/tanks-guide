@@ -33,6 +33,7 @@
 @media (max-width: 600px) {
   .nationWrap {
     width: 100%;
+    display: none;
   }
 
   .nationTitle {
