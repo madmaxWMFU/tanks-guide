@@ -107,7 +107,7 @@ export default function customHook() {
   };
 
   const toggleFilteWrap = (event, styleRule) => {
-    const filters = Object.values(event.target.parentNode.childNodes).forEach(item => {
+    Object.values(event.target.parentNode.childNodes).forEach(item => {
       if (Object.values(item.classList).includes('filter')) {
         item.classList.toggle(styleRule);
       }
@@ -135,24 +135,25 @@ export default function customHook() {
 
   useEffect(() => {
     setSearchLoading(true);
-    if (selectNation.length !== 0 || selectType.length !== 0) {
-      loadData('encyclopedia/vehicles', {
-        ...{ language: selectLanguage },
-        ...{ nation: selectNation.join(', ') },
-        ...{ type: selectType.join(', ') },
-      })
-        .then(data => {
-          const { message, code, data: dataList } = data;
+    setSearchData({});
+    loadData('encyclopedia/vehicles', {
+      ...{ language: selectLanguage },
+      ...{ nation: selectNation.join(', ') },
+      ...{ type: selectType.join(', ') },
+    })
+      .then(data => {
+        const { message, code, data: dataList } = data;
 
-          if (code !== '200' && message) throw Error(message);
-          setErrorSearch(null);
+        if (code !== '200' && message) throw Error(message);
+        if (selectNation.length == 0 && selectType.length == 0) {
+          setSearchData({});
+        } else {
           setSearchData(dataList);
-        })
-        .catch(setErrorSearch)
-        .finally(() => setSearchLoading(false));
-    } else {
-      setSearchData({});
-    }
+        }
+        setErrorSearch(null);
+      })
+      .catch(setErrorSearch)
+      .finally(() => setSearchLoading(false));
   }, [selectLanguage, selectNation, selectType]);
 
   useEffect(() => {

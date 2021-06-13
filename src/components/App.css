@@ -36,9 +36,10 @@ button {
 .filterBtn {
   display: none;
   width: 25%;
-  background-color: #716f6f;
+  background-color: #333131;
   color: #fff;
-  border: none;
+  border: solid 1px #7e7e7e;
+  border-top: 0;
   border-radius: 0px 0px 10px 10px;
   height: 25px;
   position: relative;
@@ -46,10 +47,9 @@ button {
 
 .filterBtn::before {
   content: '';
-  position: absolute;
-  top: 2px;
-  left: 35px;
-  width: 30px;
+  display: flex;
+  margin: 0 auto;
+  width: 34px;
   height: 30px;
   background: url(../assets/page/filter.png) no-repeat;
   background-position-x: right;
