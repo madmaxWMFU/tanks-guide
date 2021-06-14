@@ -1,7 +1,14 @@
 .typeInput {
   position: absolute;
-  height: 0px;
-  width: 0px;
+  overflow-y: auto;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  top: 50px;
+  left: 18px;
 }
 
 .typeItem {
