@@ -95,6 +95,8 @@ export default function App() {
             isSearchLoading={isSearchLoading}
             searchData={searchData}
             onClickVehicle={onClickVehicle}
+            selectNation={selectNation}
+            selectType={selectType}
           />
         </div>
         <VehicleInfo

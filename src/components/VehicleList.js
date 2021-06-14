@@ -6,7 +6,14 @@ import VehicleListCategory from './VehicleListCategory';
 import mainImage from '../assets/page/main.jpeg';
 import style from './VehicleList.css';
 
-export default function VehicleList({ errorSearch, isSearchLoading, searchData, onClickVehicle }) {
+export default function VehicleList({
+  errorSearch,
+  isSearchLoading,
+  selectNation,
+  selectType,
+  searchData,
+  onClickVehicle,
+}) {
   const { selectLanguage } = useContext(LanguageContext);
   const {
     typeTank,
@@ -14,7 +21,7 @@ export default function VehicleList({ errorSearch, isSearchLoading, searchData, 
     startPage: { title, text },
   } = languageList[selectLanguage];
 
-  if (!isEmptyObject(searchData)) {
+  if (selectNation.length === 0 && selectType.length === 0) {
     return (
       <div className={style.mainWrap}>
         <h1 className={style.mainTitle}>{title}</h1>

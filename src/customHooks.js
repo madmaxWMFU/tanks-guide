@@ -134,26 +134,23 @@ export default function customHook() {
   }, [selectLanguage]);
 
   useEffect(() => {
-    setSearchLoading(true);
-    setSearchData({});
-    loadData('encyclopedia/vehicles', {
-      ...{ language: selectLanguage },
-      ...{ nation: selectNation.join(', ') },
-      ...{ type: selectType.join(', ') },
-    })
-      .then(data => {
-        const { message, code, data: dataList } = data;
-
-        if (code !== '200' && message) throw Error(message);
-        if (selectNation.length == 0 && selectType.length == 0) {
-          setSearchData({});
-        } else {
-          setSearchData(dataList);
-        }
-        setErrorSearch(null);
+    if (selectNation.length !== 0 || selectType.length !== 0) {
+      setSearchLoading(true);
+      loadData('encyclopedia/vehicles', {
+        ...{ language: selectLanguage },
+        ...{ nation: selectNation.join(', ') },
+        ...{ type: selectType.join(', ') },
       })
-      .catch(setErrorSearch)
-      .finally(() => setSearchLoading(false));
+        .then(data => {
+          const { message, code, data: dataList } = data;
+
+          if (code !== '200' && message) throw Error(message);
+          setSearchData(dataList);
+          setErrorSearch(null);
+        })
+        .catch(setErrorSearch)
+        .finally(() => setSearchLoading(false));
+    }
   }, [selectLanguage, selectNation, selectType]);
 
   useEffect(() => {
