@@ -1,0 +1,75 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  background: url(../../assets/page/sparkles.png) #000 50% 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.infoWrap {
+  display: flex;
+  flex-direction: row-reverse;
+  border-top: solid 1px #828282;
+  padding: 5px;
+}
+
+.mainWrap {
+  display: flex;
+  flex-direction: row;
+  border-top: solid 1px #828282;
+  border-bottom: solid 1px #828282;
+  position: relative;
+}
+
+.filterWrap {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.filterBtn {
+  display: none;
+  width: 25%;
+  background-color: #333131;
+  color: #fff;
+  border: solid 1px #7e7e7e;
+  border-top: 0;
+  border-radius: 0px 0px 10px 10px;
+  height: 25px;
+  position: relative;
+}
+
+.filterBtn::before {
+  content: '';
+  display: flex;
+  margin: 0 auto;
+  width: 34px;
+  height: 30px;
+  background: url(../../assets/page/filter.png) no-repeat;
+  background-position-x: right;
+}
+
+.filterShow {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .mainWrap {
+    flex-direction: column;
+  }
+
+  .filterWrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filterBtn {
+    display: block;
+  }
+}

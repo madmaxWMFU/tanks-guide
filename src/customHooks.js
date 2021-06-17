@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
 import { loadData } from './data';
 
-export default function customHook() {
-  const [selectLanguage, setLanguage] = useState('ru');
+function useLanguage() {
+  const [selectedLanguage, setSelectedLanguage] = useState('ru');
 
+  return {
+    selectedLanguage,
+    setSelectedLanguage,
+  };
+}
+
+function useGeneraData(selectedLanguage) {
   const [isGeneralLoading, setGeneralLoading] = useState(false);
   const [errorGeneral, setErrorGeneral] = useState(null);
   const [selectNation, setSelectNation] = useState([]);
@@ -11,98 +18,23 @@ export default function customHook() {
   const [selectType, setSelectType] = useState([]);
   const [typeData, setTypeData] = useState({});
 
-  const [isSearchLoading, setSearchLoading] = useState(false);
-  const [errorSearch, setErrorSearch] = useState(null);
-  const [searchData, setSearchData] = useState({});
-  const [vehicleId, setVehicleId] = useState(null);
-  const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
-
-  const [isUserLoading, setUserLoading] = useState(false);
-  const [errorUser, setErrorUser] = useState(null);
-  const [nickname, setNickname] = useState(null);
-  const [userID, setUserID] = useState(null);
-  const [userData, setUserData] = useState({});
-  const [modalUserStatus, setModalUserStatus] = useState(false);
-
-  const [isCompareLoading, setCompareLoading] = useState(false);
-  const [errorCompare, setErrorCompare] = useState(null);
-  const [compareList, setCompareList] = useState([]);
-  const [compareData, setCompareData] = useState({});
-  const [modalCompareStatus, setModalCompareStatus] = useState(false);
-
-  const addToSelectNationList = id => {
-    setSelectNation([...selectNation, id]);
-  };
-
-  const deleteFromSelectNationList = id => {
-    const nations = selectNation.filter(el => el !== id);
-    setSelectNation(nations);
-  };
-
   const onChangeNation = event => {
     const nationValue = event.target.dataset.value;
     if (selectNation.includes(nationValue)) {
-      deleteFromSelectNationList(nationValue);
+      const nation = selectNation.filter(el => el !== nationValue);
+      setSelectNation(nation);
     } else {
-      addToSelectNationList(nationValue);
+      setSelectNation([...selectNation, nationValue]);
     }
-  };
-
-  const addToSelectTypeList = id => {
-    setSelectType([...selectType, id]);
-  };
-
-  const deleteFromSelectTypeList = id => {
-    const type = selectType.filter(el => el !== id);
-    setSelectType(type);
   };
 
   const onChangeType = event => {
     const typeValue = event.target.dataset.value;
     if (selectType.includes(typeValue)) {
-      deleteFromSelectTypeList(typeValue);
+      const type = selectType.filter(el => el !== typeValue);
+      setSelectType(type);
     } else {
-      addToSelectTypeList(typeValue);
-    }
-  };
-
-  const onClickVehicle = event => {
-    setVehicleId(event.target.dataset.id);
-    setModalVehicleStatus(true);
-  };
-
-  const searchUser = event => {
-    const {
-      key,
-      target: { value },
-    } = event;
-
-    if (key === 'Enter') {
-      setNickname(value);
-      event.target.value = '';
-    }
-  };
-
-  const addToCompareList = id => {
-    if (id) {
-      setCompareList([...compareList, id]);
-    }
-  };
-
-  const afterCloseModalVehicle = id => {
-    setVehicleId(null);
-    setModalVehicleStatus(false);
-    addToCompareList(id);
-  };
-
-  const toggleUserInfoModule = () => {
-    if (modalUserStatus) {
-      setModalUserStatus(false);
-      setNickname(null);
-      setUserID(null);
-      setUserData({});
-    } else {
-      setModalUserStatus(true);
+      setSelectType([...selectType, typeValue]);
     }
   };
 
@@ -116,7 +48,7 @@ export default function customHook() {
 
   useEffect(() => {
     setGeneralLoading(true);
-    loadData('encyclopedia/info', { language: selectLanguage })
+    loadData('encyclopedia/info', { language: selectedLanguage })
       .then(data => {
         const {
           message,
@@ -131,13 +63,50 @@ export default function customHook() {
       })
       .catch(setErrorGeneral)
       .finally(() => setGeneralLoading(false));
-  }, [selectLanguage]);
+  }, [selectedLanguage]);
+
+  return {
+    isGeneralLoading,
+    errorGeneral,
+    selectNation,
+    setSelectNation,
+    nationData,
+    setNationData,
+    onChangeNation,
+    selectType,
+    setSelectType,
+    typeData,
+    setTypeData,
+    onChangeType,
+    toggleFilteWrap,
+  };
+}
+
+function useSearchData(selectedLanguage, selectNation, selectType) {
+  const [isSearchLoading, setSearchLoading] = useState(false);
+  const [errorSearch, setErrorSearch] = useState(null);
+  const [searchData, setSearchData] = useState({});
+  const [vehicleId, setVehicleId] = useState(null);
+  const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
+
+  const onClickVehicle = event => {
+    setVehicleId(event.target.dataset.id);
+    setModalVehicleStatus(true);
+  };
+
+  const afterCloseModalVehicle = id => {
+    setVehicleId(null);
+    setModalVehicleStatus(false);
+    if (id) {
+      setCompareList([...compareList, id]);
+    }
+  };
 
   useEffect(() => {
     if (selectNation.length !== 0 || selectType.length !== 0) {
       setSearchLoading(true);
       loadData('encyclopedia/vehicles', {
-        ...{ language: selectLanguage },
+        ...{ language: selectedLanguage },
         ...{ nation: selectNation.join(', ') },
         ...{ type: selectType.join(', ') },
       })
@@ -151,7 +120,51 @@ export default function customHook() {
         .catch(setErrorSearch)
         .finally(() => setSearchLoading(false));
     }
-  }, [selectLanguage, selectNation, selectType]);
+  }, [selectedLanguage, selectNation, selectType]);
+
+  return {
+    isSearchLoading,
+    errorSearch,
+    searchData,
+    setSearchData,
+    vehicleId,
+    modalVehicleStatus,
+    setModalVehicleStatus,
+    onClickVehicle,
+    afterCloseModalVehicle,
+  };
+}
+
+function useUserData() {
+  const [isUserLoading, setUserLoading] = useState(false);
+  const [errorUser, setErrorUser] = useState(null);
+  const [nickname, setNickname] = useState(null);
+  const [userID, setUserID] = useState(null);
+  const [userData, setUserData] = useState({});
+  const [modalUserStatus, setModalUserStatus] = useState(false);
+
+  const searchUser = event => {
+    const {
+      key,
+      target: { value },
+    } = event;
+
+    if (key === 'Enter') {
+      setNickname(value);
+      event.target.value = '';
+    }
+  };
+
+  const toggleUserInfoModule = () => {
+    if (modalUserStatus) {
+      setModalUserStatus(false);
+      setNickname(null);
+      setUserID(null);
+      setUserData({});
+    } else {
+      setModalUserStatus(true);
+    }
+  };
 
   useEffect(() => {
     if (nickname) {
@@ -189,6 +202,27 @@ export default function customHook() {
     }
   }, [userID]);
 
+  return {
+    isUserLoading,
+    errorUser,
+    nickname,
+    setNickname,
+    userData,
+    setUserData,
+    modalUserStatus,
+    setModalUserStatus,
+    searchUser,
+    toggleUserInfoModule,
+  };
+}
+
+function compareData() {
+  const [isCompareLoading, setCompareLoading] = useState(false);
+  const [errorCompare, setErrorCompare] = useState(null);
+  const [compareList, setCompareList] = useState([]);
+  const [compareData, setCompareData] = useState({});
+  const [modalCompareStatus, setModalCompareStatus] = useState(false);
+
   useEffect(() => {
     if (compareList.length != 0) {
       setCompareLoading(true);
@@ -206,38 +240,6 @@ export default function customHook() {
   }, [compareList]);
 
   return {
-    selectLanguage,
-    setLanguage,
-    isGeneralLoading,
-    errorGeneral,
-    selectNation,
-    setSelectNation,
-    nationData,
-    setNationData,
-    onChangeNation,
-    selectType,
-    setSelectType,
-    typeData,
-    setTypeData,
-    onChangeType,
-    isSearchLoading,
-    errorSearch,
-    searchData,
-    setSearchData,
-    vehicleId,
-    modalVehicleStatus,
-    setModalVehicleStatus,
-    onClickVehicle,
-    isUserLoading,
-    errorUser,
-    nickname,
-    setNickname,
-    userData,
-    setUserData,
-    modalUserStatus,
-    setModalUserStatus,
-    searchUser,
-    toggleUserInfoModule,
     isCompareLoading,
     errorCompare,
     compareData,
@@ -246,6 +248,13 @@ export default function customHook() {
     modalCompareStatus,
     setModalCompareStatus,
     afterCloseModalVehicle,
-    toggleFilteWrap,
   };
 }
+
+export default {
+  useLanguage,
+  useGeneraData,
+  useSearchData,
+  useUserData,
+  compareData,
+};
