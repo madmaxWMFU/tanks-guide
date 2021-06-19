@@ -48,11 +48,11 @@ export default function VehicleList({
 
   return (
     <div className={style.vehicleWrap}>
-      {Object.entries(getFilterList(searchData)).map(([type, list], key) => {
+      {Object.entries(getFilterList(searchData)).map(([type, list]) => {
         if (list.length > 0) {
           return (
             <VehicleListCategory
-              key={key}
+              key={type}
               categoryTitle={typeTank[type]}
               list={list}
               onClickVehicle={onClickVehicle}

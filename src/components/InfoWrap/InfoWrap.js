@@ -27,7 +27,7 @@ export default function InfoWrap() {
           className={`${style.userWrap} modalUser ${modalUserStatus ? style.modalUserActive : ''}`}
         >
           <input className={style.userSearch} type="text" onKeyPress={event => searchUser(event)} />
-          {Object.values(userData).map((user, key) => {
+          {Object.values(userData).map(user => {
             const {
               createdAt,
               globalRating,
@@ -38,7 +38,7 @@ export default function InfoWrap() {
             } = user;
 
             return (
-              <div key={key}>
+              <div key={createdAt}>
                 <p>
                   <b>{nickname}</b>
                 </p>

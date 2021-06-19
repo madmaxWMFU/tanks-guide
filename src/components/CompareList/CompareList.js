@@ -93,7 +93,7 @@ export default function CompareList() {
               <div>{modal.speed_forward}</div>
               <div>{modal.speed_backward}</div>
             </div>
-            {Object.values(compareData).map((vehicle, key) => {
+            {Object.values(compareData).map(vehicle => {
               const {
                 tankId,
                 images: { bigIcon },

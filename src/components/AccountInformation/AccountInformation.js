@@ -27,28 +27,28 @@ export default function AccountInformation() {
     );
   }
 
-  return Object.values(userData).map((user, key) => {
+  return Object.values(userData).map(user => {
     const {
-      created_at,
-      global_rating,
+      createdAt,
+      globalRating,
       nickname,
       statistics: {
-        all: { battles, wins, losses, survived_battles, hits_percents, max_damage, max_frags },
+        all: { battles, wins, losses, survivedBattles, hitsPercents, maxDamage, maxFrags },
       },
     } = user;
 
     return (
-      <div key={key}>
+      <div key={createdAt}>
         <p>
           <b>{nickname}</b>
         </p>
         <p>
           <span>{userStat.created_at}: </span>
-          <b> {getDateFromUnixTimestamp(created_at)}</b>
+          <b> {getDateFromUnixTimestamp(createdAt)}</b>
         </p>
         <p>
-          <span>{userStat.global_rating}: </span>
-          <b> {global_rating}</b>
+          <span>{userStat.globalRating}: </span>
+          <b> {globalRating}</b>
         </p>
         <p>
           <span>{userStat.battles}: </span>
@@ -64,19 +64,19 @@ export default function AccountInformation() {
         </p>
         <p>
           <span>{userStat.survived_battles}: </span>
-          <b> {survived_battles}</b>
+          <b> {survivedBattles}</b>
         </p>
         <p>
           <span>{userStat.hits_percents}: </span>
-          <b> {hits_percents}</b>
+          <b> {hitsPercents}</b>
         </p>
         <p>
           <span>{userStat.max_damage}: </span>
-          <b> {max_damage}</b>
+          <b> {maxDamage}</b>
         </p>
         <p>
           <span>{userStat.max_frags}: </span>
-          <b> {max_frags}</b>
+          <b> {maxFrags}</b>
         </p>
       </div>
     );
