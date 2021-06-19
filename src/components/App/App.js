@@ -22,6 +22,7 @@ export default function App() {
     selectType,
     onChangeType,
     toggleFilteWrap,
+    refMobileView,
   } = useGeneraData(selectedLanguage);
   const {
     isSearchLoading,
@@ -48,21 +49,23 @@ export default function App() {
         </div>
         <div className={style.mainWrap}>
           <div className={style.filterWrap}>
-            <NationsList
-              errorGeneral={errorGeneral}
-              nationData={nationData}
-              selectNation={selectNation}
-              onChangeNation={onChangeNation}
-            />
-            <TypesList
-              errorGeneral={errorGeneral}
-              typeData={typeData}
-              selectType={selectType}
-              onChangeType={onChangeType}
-            />
+            <div className={style.filterWrapInner} ref={refMobileView}>
+              <NationsList
+                errorGeneral={errorGeneral}
+                nationData={nationData}
+                selectNation={selectNation}
+                onChangeNation={onChangeNation}
+              />
+              <TypesList
+                errorGeneral={errorGeneral}
+                typeData={typeData}
+                selectType={selectType}
+                onChangeType={onChangeType}
+              />
+            </div>
             <button
               className={style.filterBtn}
-              onClick={event => toggleFilteWrap(event, style.filterShow)}
+              onClick={event => toggleFilteWrap(style.filterShow)}
             />
           </div>
           <VehicleList

@@ -18,6 +18,7 @@ function useGeneraData(selectedLanguage) {
   const [nationData, setNationData] = useState({});
   const [selectType, setSelectType] = useState([]);
   const [typeData, setTypeData] = useState({});
+  const refMobileView = useRef(null);
 
   const onChangeNation = nationValue => {
     if (selectNation.includes(nationValue)) {
@@ -37,11 +38,7 @@ function useGeneraData(selectedLanguage) {
     }
   };
 
-  const toggleFilteWrap = (event, styleRule) => {
-    Object.values(event.target.parentNode.childNodes).forEach(item => {
-      item.classList.toggle(styleRule);
-    });
-  };
+  const toggleFilteWrap = styleRule => refMobileView.current.classList.toggle(styleRule);
 
   useEffect(() => {
     setGeneralLoading(true);
@@ -71,6 +68,7 @@ function useGeneraData(selectedLanguage) {
     typeData,
     onChangeType,
     toggleFilteWrap,
+    refMobileView,
   };
 }
 
