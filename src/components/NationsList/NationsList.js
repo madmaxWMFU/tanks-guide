@@ -25,7 +25,7 @@ export default function NationsList({ errorGeneral, nationData, selectNation, on
   }
 
   return (
-    <div className={`${style.nationWrap} filter`}>
+    <div className={style.nationWrap}>
       <h2 className={style.nationTitle}>{nationTitle}</h2>
       <ul className={style.nationList}>
         {Object.entries(nationData).map(([keyFilter, nameFilter]) => (
