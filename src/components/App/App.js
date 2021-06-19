@@ -2,12 +2,11 @@ import React from 'react';
 import hooks from '../../customHooks';
 import { LanguageContext, InformationContext } from '../../context';
 import Header from '../Header';
-import InfoWrap from '../InfoWrap';
-// import AccountInformation from '../AccountInformation';
 import NationsList from '../NationsList';
 import TypesList from '../TypesList';
 import VehicleList from '../VehicleList';
 import VehicleInfo from '../VehicleInfo';
+import InfoWrap from '../InfoWrap';
 import Footer from '../Footer';
 import style from './App.css';
 
@@ -25,16 +24,6 @@ export default function App() {
     toggleFilteWrap,
   } = useGeneraData(selectedLanguage);
   const {
-    setModalCompareStatus,
-    isCompareLoading,
-    errorCompare,
-    compareData,
-    setCompareData,
-    compareList,
-    setCompareList,
-    modalCompareStatus,
-  } = useCompareData();
-  const {
     isSearchLoading,
     errorSearch,
     searchData,
@@ -42,14 +31,18 @@ export default function App() {
     modalVehicleStatus,
     vehicleId,
     afterCloseModalVehicle,
-  } = useSearchData(selectedLanguage, selectNation, selectType, compareList, setCompareList);
+    compareList,
+    setCompareList,
+  } = useSearchData(selectedLanguage, selectNation, selectType);
 
   return (
     <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage }}>
       <Header />
       <main>
         <div className={style.infoWrap}>
-          <InformationContext.Provider value={{ ...useUserData(), ...useCompareData() }}>
+          <InformationContext.Provider
+            value={{ ...useUserData(), ...useCompareData(compareList, setCompareList) }}
+          >
             <InfoWrap />
           </InformationContext.Provider>
         </div>

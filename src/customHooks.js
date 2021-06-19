@@ -74,20 +74,21 @@ function useGeneraData(selectedLanguage) {
   };
 }
 
-function useSearchData(selectedLanguage, selectNation, selectType, compareList, setCompareList) {
+function useSearchData(selectedLanguage, selectNation, selectType) {
   const [isSearchLoading, setSearchLoading] = useState(false);
   const [errorSearch, setErrorSearch] = useState(null);
   const [searchData, setSearchData] = useState({});
+  const [compareList, setCompareList] = useState([]);
   const [vehicleId, setVehicleId] = useState(null);
   const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
-  const refCompareModule = useRef(null);
+  const refInfoModule = useRef(null);
 
-  const onClickVehicle = id => {
-    setVehicleId(id);
+  const onClickVehicle = event => {
+    setVehicleId(event.target.dataset.id);
     setModalVehicleStatus(true);
   };
 
-  const afterCloseModalVehicle = id => {
+  const afterCloseModalVehicle = (id = null) => {
     setVehicleId(null);
     setModalVehicleStatus(false);
     if (id) {
@@ -123,7 +124,9 @@ function useSearchData(selectedLanguage, selectNation, selectType, compareList, 
     modalVehicleStatus,
     onClickVehicle,
     afterCloseModalVehicle,
-    refCompareModule,
+    refInfoModule,
+    compareList,
+    setCompareList,
   };
 }
 
@@ -206,12 +209,29 @@ function useUserData() {
   };
 }
 
-function useCompareData() {
+function useCompareData(compareList, setCompareList) {
   const [isCompareLoading, setCompareLoading] = useState(false);
   const [errorCompare, setErrorCompare] = useState(null);
-  const [compareList, setCompareList] = useState([]);
   const [compareData, setCompareData] = useState({});
-  const [modalCompareStatus, setModalCompareStatus] = useState(false);
+  const refCompareModule = useRef(null);
+
+  const toggleCompareModule = (styleRule, clear = null) => {
+    const moduleClassList = Object.values(refCompareModule.current.classList);
+    const removeStyle = moduleClassList.filter(style =>
+      style.includes('modalActive') ? style : null,
+    );
+
+    if (removeStyle.length) {
+      refCompareModule.current.classList.remove(removeStyle);
+    } else {
+      refCompareModule.current.classList.add(styleRule);
+    }
+
+    if (clear) {
+      setCompareData({});
+      setCompareList([]);
+    }
+  };
 
   useEffect(() => {
     if (compareList.length != 0) {
@@ -233,11 +253,8 @@ function useCompareData() {
     isCompareLoading,
     errorCompare,
     compareData,
-    setCompareData,
-    compareList,
-    setCompareList,
-    modalCompareStatus,
-    setModalCompareStatus,
+    toggleCompareModule,
+    refCompareModule,
   };
 }
 

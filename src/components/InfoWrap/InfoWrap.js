@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
+import style from './InfoWrap.css';
 import { InformationContext, LanguageContext } from '../../context';
 import AccountInformation from '../AccountInformation';
 import CompareList from '../CompareList';
-import style from './InfoWrap.css';
 import { languageList } from '../../data';
 import { getDateFromUnixTimestamp } from '../../utils';
 
@@ -12,7 +12,8 @@ export default function InfoWrap() {
     refAccountModule,
     searchUser,
     userData,
-    setModalCompareStatus,
+    refCompareModule,
+    toggleCompareModule,
   } = useContext(InformationContext);
   const { selectedLanguage } = useContext(LanguageContext);
   const {
@@ -82,8 +83,10 @@ export default function InfoWrap() {
         </div>
       </div>
       <div className={style.compare}>
-        <a className={style.compareLink} onClick={() => setModalCompareStatus(true)} />
-        <CompareList />
+        <a className={style.compareLink} onClick={() => toggleCompareModule(style.modalActive)} />
+        <div className={style.modal} ref={refCompareModule}>
+          <CompareList />
+        </div>
       </div>
     </>
   );

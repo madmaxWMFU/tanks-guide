@@ -28,7 +28,7 @@ export default function VehicleListCategory({ vehicle, onClickVehicle }) {
         src={bigIcon}
         alt={shortName}
         data-id={tankId}
-        onClick={event => onClickVehicle(event.target.dataset.id)}
+        onClick={event => onClickVehicle(event)}
       />
       <span
         className={`${style.vehicleTitle} ${isPremium ? `${style['vehicleTitle--premium']}` : ''}`}

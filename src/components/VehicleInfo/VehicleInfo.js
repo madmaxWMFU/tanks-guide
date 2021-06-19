@@ -54,7 +54,7 @@ export default function VehicleInfo({
             className={style.modalHeaderBtn}
             onClick={event => {
               closeModal(event.target, 'modalVehicle');
-              afterCloseModalVehicle(event.target.dataset.id);
+              afterCloseModalVehicle();
             }}
           >
             x
