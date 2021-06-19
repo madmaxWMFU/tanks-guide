@@ -16,12 +16,13 @@ export default function CompareList() {
     modalCompareStatus,
     setModalCompareStatus,
   } = useContext(InformationContext);
+
   const {
     modal,
     status: { loadData, errorData },
   } = languageList[selectedLanguage];
 
-  if (!isEmptyObject(compareData)) {
+  if (isEmptyObject(compareData)) {
     return (
       <div className={`${style.modal} modalCompare ${modalCompareStatus ? style.modalActive : ''}`}>
         <div className={style.modalBody}>

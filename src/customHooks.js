@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { loadData } from './data';
 const camelize = require('camelize');
 
@@ -63,17 +63,12 @@ function useGeneraData(selectedLanguage) {
   }, [selectedLanguage]);
 
   return {
-    isGeneralLoading,
     errorGeneral,
     selectNation,
-    setSelectNation,
     nationData,
-    setNationData,
     onChangeNation,
     selectType,
-    setSelectType,
     typeData,
-    setTypeData,
     onChangeType,
     toggleFilteWrap,
   };
@@ -85,9 +80,10 @@ function useSearchData(selectedLanguage, selectNation, selectType, compareList, 
   const [searchData, setSearchData] = useState({});
   const [vehicleId, setVehicleId] = useState(null);
   const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
+  const refCompareModule = useRef(null);
 
-  const onClickVehicle = event => {
-    setVehicleId(event.target.dataset.id);
+  const onClickVehicle = id => {
+    setVehicleId(id);
     setModalVehicleStatus(true);
   };
 
@@ -123,12 +119,11 @@ function useSearchData(selectedLanguage, selectNation, selectType, compareList, 
     isSearchLoading,
     errorSearch,
     searchData,
-    setSearchData,
     vehicleId,
     modalVehicleStatus,
-    setModalVehicleStatus,
     onClickVehicle,
     afterCloseModalVehicle,
+    refCompareModule,
   };
 }
 
@@ -138,7 +133,7 @@ function useUserData() {
   const [nickname, setNickname] = useState(null);
   const [userID, setUserID] = useState(null);
   const [userData, setUserData] = useState({});
-  const [modalUserStatus, setModalUserStatus] = useState(false);
+  const refAccountModule = useRef(null);
 
   const searchUser = event => {
     const {
@@ -152,14 +147,15 @@ function useUserData() {
     }
   };
 
-  const toggleUserInfoModule = () => {
-    if (modalUserStatus) {
-      setModalUserStatus(false);
+  const toggleAccountModule = styleRule => {
+    const moduleClassList = Object.values(refAccountModule.current.classList);
+    if (moduleClassList.includes(styleRule)) {
+      refAccountModule.current.classList.remove(styleRule);
       setNickname(null);
       setUserID(null);
       setUserData({});
     } else {
-      setModalUserStatus(true);
+      refAccountModule.current.classList.add(styleRule);
     }
   };
 
@@ -203,13 +199,10 @@ function useUserData() {
     isUserLoading,
     errorUser,
     nickname,
-    setNickname,
     userData,
-    setUserData,
-    modalUserStatus,
-    setModalUserStatus,
     searchUser,
-    toggleUserInfoModule,
+    toggleAccountModule,
+    refAccountModule,
   };
 }
 

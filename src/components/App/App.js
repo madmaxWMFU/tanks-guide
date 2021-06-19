@@ -35,8 +35,8 @@ export default function App() {
     modalCompareStatus,
   } = useCompareData();
   const {
-    errorSearch,
     isSearchLoading,
+    errorSearch,
     searchData,
     onClickVehicle,
     modalVehicleStatus,

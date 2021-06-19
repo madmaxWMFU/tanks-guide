@@ -8,8 +8,8 @@ import { getDateFromUnixTimestamp } from '../../utils';
 
 export default function InfoWrap() {
   const {
-    toggleUserInfoModule,
-    modalUserStatus,
+    toggleAccountModule,
+    refAccountModule,
     searchUser,
     userData,
     setModalCompareStatus,
@@ -22,10 +22,8 @@ export default function InfoWrap() {
   return (
     <>
       <div className={style.user}>
-        <a className={style.userLink} onClick={() => toggleUserInfoModule()} />
-        <div
-          className={`${style.userWrap} modalUser ${modalUserStatus ? style.modalUserActive : ''}`}
-        >
+        <a className={style.userLink} onClick={() => toggleAccountModule(style.modalUserActive)} />
+        <div className={style.userWrap} ref={refAccountModule}>
           <input className={style.userSearch} type="text" onKeyPress={event => searchUser(event)} />
           {Object.values(userData).map(user => {
             const {
