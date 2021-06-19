@@ -94,31 +94,44 @@ export default function CompareList() {
               <div>{modal.speed_backward}</div>
             </div>
             {Object.values(compareData).map((vehicle, key) => {
+              const {
+                tankId,
+                images: { bigIcon },
+                shortName,
+                defaultProfile: {
+                  hp,
+                  armor: { hull, turret },
+                  weight,
+                  ammo,
+                  gun: { fireRate, aimTime, dispersion },
+                  turret: { viewRange },
+                  radio: { signalRange },
+                  speedForward,
+                  speedBackward,
+                },
+              } = vehicle;
+
               return (
-                <div key={key}>
-                  <img
-                    className={style.vehicleImg}
-                    src={vehicle.images.big_icon}
-                    alt={vehicle.short_name}
-                  />
-                  <p>{vehicle.short_name}</p>
-                  <p>{vehicle.default_profile.hp}</p>
-                  <p>{Object.values(vehicle.default_profile.armor.hull).join(' / ')}</p>
+                <div key={tankId}>
+                  <img className={style.vehicleImg} src={bigIcon} alt={shortName} />
+                  <p>{shortName}</p>
+                  <p>{hp}</p>
+                  <p>{Object.values(hull).join(' / ')}</p>
                   <p>
                     {vehicle.default_profile.armor.turret
-                      ? Object.values(vehicle.default_profile.armor.turret).join(' / ')
+                      ? Object.values(turret).join(' / ')
                       : '- / - / -'}
                   </p>
-                  <p>{vehicle.default_profile.weight}</p>
-                  <p>{vehicle.default_profile.ammo.map(item => item.damage[1]).join(' / ')}</p>
-                  <p>{vehicle.default_profile.ammo.map(item => item.penetration[1]).join(' / ')}</p>
-                  <p>{vehicle.default_profile.gun.fire_rate}</p>
-                  <p>{vehicle.default_profile.gun.aim_time}</p>
-                  <p>{vehicle.default_profile.gun.dispersion}</p>
-                  <p>{vehicle.default_profile.turret.view_range}</p>
-                  <p>{vehicle.default_profile.radio.signal_range}</p>
-                  <p>{vehicle.default_profile.speed_forward}</p>
-                  <p>{vehicle.default_profile.speed_backward}</p>
+                  <p>{weight}</p>
+                  <p>{ammo.map(({ damage: [, point] }) => point).join(' / ')}</p>
+                  <p>{ammo.map(({ penetration: [, point] }) => point).join(' / ')}</p>
+                  <p>{fireRate}</p>
+                  <p>{aimTime}</p>
+                  <p>{dispersion}</p>
+                  <p>{viewRange}</p>
+                  <p>{signalRange}</p>
+                  <p>{speedForward}</p>
+                  <p>{speedBackward}</p>
                 </div>
               );
             })}

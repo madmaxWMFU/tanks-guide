@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { loadData } from './data';
+const camelize = require('camelize');
 
 function useLanguage() {
   const [selectedLanguage, setSelectedLanguage] = useState('ru');
@@ -38,9 +39,7 @@ function useGeneraData(selectedLanguage) {
 
   const toggleFilteWrap = (event, styleRule) => {
     Object.values(event.target.parentNode.childNodes).forEach(item => {
-      if (Object.values(item.classList).includes('filter')) {
-        item.classList.toggle(styleRule);
-      }
+      item.classList.toggle(styleRule);
     });
   };
 
@@ -112,7 +111,7 @@ function useSearchData(selectedLanguage, selectNation, selectType, compareList, 
           const { message, code, data: dataList } = data;
 
           if (code !== '200' && message) throw Error(message);
-          setSearchData(dataList);
+          setSearchData(camelize(dataList));
           setErrorSearch(null);
         })
         .catch(setErrorSearch)
@@ -193,7 +192,7 @@ function useUserData() {
 
           if (code !== '200' && message) throw Error(message);
           setErrorUser(null);
-          setUserData(dataList);
+          setUserData(camelize(dataList));
         })
         .catch(setErrorUser)
         .finally(() => setUserLoading(false));
@@ -230,7 +229,7 @@ function useCompareData() {
 
           if (code !== '200' && message) throw Error(message);
           setErrorCompare(null);
-          setCompareData(dataList);
+          setCompareData(camelize(dataList));
         })
         .catch(setErrorCompare)
         .finally(() => setCompareLoading(false));
