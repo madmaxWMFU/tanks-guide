@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../../context';
 import { languageList } from '../../data';
-import NationsListItem from '../NationsListItem/NationsListItem';
+import FilterItem from '../FilterItem';
 import style from './NationsList.css';
+import imgNationList from '../../assets/flags/*.png';
 
 export default function NationsList({ errorGeneral, nationData, selectNation, onChangeNation }) {
   const { selectedLanguage } = useContext(LanguageContext);
@@ -27,13 +28,15 @@ export default function NationsList({ errorGeneral, nationData, selectNation, on
     <div className={`${style.nationWrap} filter`}>
       <h2 className={style.nationTitle}>{nationTitle}</h2>
       <ul className={style.nationList}>
-        {Object.entries(nationData).map((nation, key) => (
-          <NationsListItem
-            key={key}
-            id={key}
-            nation={nation}
-            selectNation={selectNation}
-            onChangeNation={onChangeNation}
+        {Object.entries(nationData).map(([keyFilter, nameFilter]) => (
+          <FilterItem
+            key={keyFilter}
+            type="nation"
+            imgList={imgNationList}
+            keyFilter={keyFilter}
+            nameFilter={nameFilter}
+            selectData={selectNation}
+            handelChange={onChangeNation}
           />
         ))}
       </ul>

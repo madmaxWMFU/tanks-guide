@@ -4,8 +4,8 @@ import { languageList } from '../../data';
 import { getDateFromUnixTimestamp } from '../../utils';
 
 export default function AccountInformation() {
-  const { selectedLanguage } = useContext(LanguageContext);
   const { isUserLoading, errorUser, userData } = useContext(InformationContext);
+  const { selectedLanguage } = useContext(LanguageContext);
   const {
     userStat,
     status: { loadData, errorData },

@@ -1,0 +1,61 @@
+.filterInput {
+  position: absolute;
+  overflow-y: auto;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  top: 50px;
+  left: 18px;
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+}
+
+.filterInput:checked ~ .filterItem {
+  border-radius: 14px;
+  box-shadow: 0px 0px 10px 5px #cc2331;
+}
+
+.filterItem:hover,
+.filterInput:focus ~ .filterItem {
+  border-radius: 14px;
+  box-shadow: 0px 0px 10px 5px #676560;
+}
+
+.filterItem span {
+  z-index: -1;
+}
+
+.filterImgNation {
+  height: 26px;
+  width: 41px;
+  margin: 10px;
+  z-index: -1;
+}
+
+.filterImgType {
+  height: 49px;
+  width: 100px;
+  z-index: -1;
+}
+
+@media (max-width: 600px) {
+  .filterItem {
+    margin: 3px;
+  }
+
+  /* .filterImg {
+      height: 53px;
+      width: 100px;
+    } */
+}

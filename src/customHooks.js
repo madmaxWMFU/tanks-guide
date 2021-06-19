@@ -18,8 +18,7 @@ function useGeneraData(selectedLanguage) {
   const [selectType, setSelectType] = useState([]);
   const [typeData, setTypeData] = useState({});
 
-  const onChangeNation = event => {
-    const nationValue = event.target.dataset.value;
+  const onChangeNation = nationValue => {
     if (selectNation.includes(nationValue)) {
       const nation = selectNation.filter(el => el !== nationValue);
       setSelectNation(nation);
@@ -28,8 +27,7 @@ function useGeneraData(selectedLanguage) {
     }
   };
 
-  const onChangeType = event => {
-    const typeValue = event.target.dataset.value;
+  const onChangeType = typeValue => {
     if (selectType.includes(typeValue)) {
       const type = selectType.filter(el => el !== typeValue);
       setSelectType(type);
@@ -82,7 +80,7 @@ function useGeneraData(selectedLanguage) {
   };
 }
 
-function useSearchData(selectedLanguage, selectNation, selectType) {
+function useSearchData(selectedLanguage, selectNation, selectType, compareList, setCompareList) {
   const [isSearchLoading, setSearchLoading] = useState(false);
   const [errorSearch, setErrorSearch] = useState(null);
   const [searchData, setSearchData] = useState({});
@@ -216,7 +214,7 @@ function useUserData() {
   };
 }
 
-function compareData() {
+function useCompareData() {
   const [isCompareLoading, setCompareLoading] = useState(false);
   const [errorCompare, setErrorCompare] = useState(null);
   const [compareList, setCompareList] = useState([]);
@@ -244,10 +242,10 @@ function compareData() {
     errorCompare,
     compareData,
     setCompareData,
+    compareList,
     setCompareList,
     modalCompareStatus,
     setModalCompareStatus,
-    afterCloseModalVehicle,
   };
 }
 
@@ -256,5 +254,5 @@ export default {
   useGeneraData,
   useSearchData,
   useUserData,
-  compareData,
+  useCompareData,
 };

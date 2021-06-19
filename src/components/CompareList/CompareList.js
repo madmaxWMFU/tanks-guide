@@ -11,6 +11,7 @@ export default function CompareList() {
     errorCompare,
     compareData,
     setCompareList,
+    compareList,
     setCompareData,
     modalCompareStatus,
     setModalCompareStatus,
