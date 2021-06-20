@@ -11,13 +11,9 @@ const romeNumbers = {
   10: 'X',
 };
 
-export function getRomeNumber(num) {
-  return romeNumbers[num];
-}
+export const getRomeNumber = num => romeNumbers[num];
 
-export function getDateFromUnixTimestamp(dt) {
-  return new Date(dt * 1000).toLocaleDateString();
-}
+export const getDateFromUnixTimestamp = dt => new Date(dt * 1000).toLocaleDateString();
 
 export const isFunction = func => typeof func === 'function';
 

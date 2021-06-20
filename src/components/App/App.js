@@ -63,10 +63,7 @@ export default function App() {
                 onChangeType={onChangeType}
               />
             </div>
-            <button
-              className={style.filterBtn}
-              onClick={event => toggleFilteWrap(style.filterShow)}
-            />
+            <button className={style.filterBtn} onClick={() => toggleFilteWrap(style.filterShow)} />
           </div>
           <VehicleList
             errorSearch={errorSearch}
