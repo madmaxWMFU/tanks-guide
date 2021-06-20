@@ -1,122 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { loadData } from './data';
+const camelize = require('camelize');
 
-export default function customHook() {
-  const [selectLanguage, setLanguage] = useState('ru');
+function useLanguage() {
+  const [selectedLanguage, setSelectedLanguage] = useState('ru');
 
+  return {
+    selectedLanguage,
+    setSelectedLanguage,
+  };
+}
+
+function useGeneraData(selectedLanguage) {
   const [isGeneralLoading, setGeneralLoading] = useState(false);
   const [errorGeneral, setErrorGeneral] = useState(null);
   const [selectNation, setSelectNation] = useState([]);
   const [nationData, setNationData] = useState({});
   const [selectType, setSelectType] = useState([]);
   const [typeData, setTypeData] = useState({});
+  const refMobileView = useRef(null);
 
-  const [isSearchLoading, setSearchLoading] = useState(false);
-  const [errorSearch, setErrorSearch] = useState(null);
-  const [searchData, setSearchData] = useState({});
-  const [vehicleId, setVehicleId] = useState(null);
-  const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
-
-  const [isUserLoading, setUserLoading] = useState(false);
-  const [errorUser, setErrorUser] = useState(null);
-  const [nickname, setNickname] = useState(null);
-  const [userID, setUserID] = useState(null);
-  const [userData, setUserData] = useState({});
-  const [modalUserStatus, setModalUserStatus] = useState(false);
-
-  const [isCompareLoading, setCompareLoading] = useState(false);
-  const [errorCompare, setErrorCompare] = useState(null);
-  const [compareList, setCompareList] = useState([]);
-  const [compareData, setCompareData] = useState({});
-  const [modalCompareStatus, setModalCompareStatus] = useState(false);
-
-  const addToSelectNationList = id => {
-    setSelectNation([...selectNation, id]);
-  };
-
-  const deleteFromSelectNationList = id => {
-    const nations = selectNation.filter(el => el !== id);
-    setSelectNation(nations);
-  };
-
-  const onChangeNation = event => {
-    const nationValue = event.target.dataset.value;
+  const onChangeNation = nationValue => {
     if (selectNation.includes(nationValue)) {
-      deleteFromSelectNationList(nationValue);
+      const nation = selectNation.filter(el => el !== nationValue);
+      setSelectNation(nation);
     } else {
-      addToSelectNationList(nationValue);
+      setSelectNation([...selectNation, nationValue]);
     }
   };
 
-  const addToSelectTypeList = id => {
-    setSelectType([...selectType, id]);
-  };
-
-  const deleteFromSelectTypeList = id => {
-    const type = selectType.filter(el => el !== id);
-    setSelectType(type);
-  };
-
-  const onChangeType = event => {
-    const typeValue = event.target.dataset.value;
+  const onChangeType = typeValue => {
     if (selectType.includes(typeValue)) {
-      deleteFromSelectTypeList(typeValue);
+      const type = selectType.filter(el => el !== typeValue);
+      setSelectType(type);
     } else {
-      addToSelectTypeList(typeValue);
+      setSelectType([...selectType, typeValue]);
     }
   };
 
-  const onClickVehicle = event => {
-    setVehicleId(event.target.dataset.id);
-    setModalVehicleStatus(true);
-  };
-
-  const searchUser = event => {
-    const {
-      key,
-      target: { value },
-    } = event;
-
-    if (key === 'Enter') {
-      setNickname(value);
-      event.target.value = '';
-    }
-  };
-
-  const addToCompareList = id => {
-    if (id) {
-      setCompareList([...compareList, id]);
-    }
-  };
-
-  const afterCloseModalVehicle = id => {
-    setVehicleId(null);
-    setModalVehicleStatus(false);
-    addToCompareList(id);
-  };
-
-  const toggleUserInfoModule = () => {
-    if (modalUserStatus) {
-      setModalUserStatus(false);
-      setNickname(null);
-      setUserID(null);
-      setUserData({});
-    } else {
-      setModalUserStatus(true);
-    }
-  };
-
-  const toggleFilteWrap = (event, styleRule) => {
-    Object.values(event.target.parentNode.childNodes).forEach(item => {
-      if (Object.values(item.classList).includes('filter')) {
-        item.classList.toggle(styleRule);
-      }
-    });
-  };
+  const toggleFilteWrap = styleRule => refMobileView.current.classList.toggle(styleRule);
 
   useEffect(() => {
     setGeneralLoading(true);
-    loadData('encyclopedia/info', { language: selectLanguage })
+    loadData('encyclopedia/info', { language: selectedLanguage })
       .then(data => {
         const {
           message,
@@ -131,13 +57,57 @@ export default function customHook() {
       })
       .catch(setErrorGeneral)
       .finally(() => setGeneralLoading(false));
-  }, [selectLanguage]);
+  }, [selectedLanguage]);
+
+  return {
+    errorGeneral,
+    selectNation,
+    nationData,
+    onChangeNation,
+    selectType,
+    typeData,
+    onChangeType,
+    toggleFilteWrap,
+    refMobileView,
+  };
+}
+
+function useSearchData(selectedLanguage, selectNation, selectType) {
+  const [isSearchLoading, setSearchLoading] = useState(false);
+  const [errorSearch, setErrorSearch] = useState(null);
+  const [searchData, setSearchData] = useState({});
+  const [compareList, setCompareList] = useState([]);
+  const [vehicleId, setVehicleId] = useState(null);
+  const refInfoModule = useRef(null);
+
+  const onClickVehicle = (event, styleRule) => {
+    setVehicleId(event.target.dataset.id);
+    refInfoModule.current.classList.add(styleRule);
+  };
+
+  const toggleModalVehicle = (styleRule, id = null) => {
+    const moduleClassList = Object.values(refInfoModule.current.classList);
+    const removeStyle = moduleClassList.filter(style =>
+      style.includes('modalActive') ? style : null,
+    );
+
+    if (removeStyle.length) {
+      setVehicleId(null);
+      refInfoModule.current.classList.remove(removeStyle);
+    } else {
+      refInfoModule.current.classList.add(styleRule);
+    }
+
+    if (id) {
+      setCompareList([...compareList, id]);
+    }
+  };
 
   useEffect(() => {
     if (selectNation.length !== 0 || selectType.length !== 0) {
       setSearchLoading(true);
       loadData('encyclopedia/vehicles', {
-        ...{ language: selectLanguage },
+        ...{ language: selectedLanguage },
         ...{ nation: selectNation.join(', ') },
         ...{ type: selectType.join(', ') },
       })
@@ -145,13 +115,59 @@ export default function customHook() {
           const { message, code, data: dataList } = data;
 
           if (code !== '200' && message) throw Error(message);
-          setSearchData(dataList);
+          setSearchData(camelize(dataList));
           setErrorSearch(null);
         })
         .catch(setErrorSearch)
         .finally(() => setSearchLoading(false));
     }
-  }, [selectLanguage, selectNation, selectType]);
+  }, [selectedLanguage, selectNation, selectType]);
+
+  return {
+    isSearchLoading,
+    errorSearch,
+    searchData,
+    vehicleId,
+    onClickVehicle,
+    toggleModalVehicle,
+    refInfoModule,
+    compareList,
+    setCompareList,
+  };
+}
+
+function useUserData() {
+  const [isUserLoading, setUserLoading] = useState(false);
+  const [errorUser, setErrorUser] = useState(null);
+  const [nickname, setNickname] = useState(null);
+  const [userID, setUserID] = useState(null);
+  const [userData, setUserData] = useState({});
+  const refAccountModule = useRef(null);
+
+  const searchUser = event => {
+    const {
+      key,
+      target: { value },
+    } = event;
+
+    if (key === 'Enter') {
+      setNickname(value);
+      setUserData({});
+      event.target.value = '';
+    }
+  };
+
+  const toggleAccountModule = styleRule => {
+    const moduleClassList = Object.values(refAccountModule.current.classList);
+    if (moduleClassList.includes(styleRule)) {
+      refAccountModule.current.classList.remove(styleRule);
+      setNickname(null);
+      setUserID(null);
+      setUserData({});
+    } else {
+      refAccountModule.current.classList.add(styleRule);
+    }
+  };
 
   useEffect(() => {
     if (nickname) {
@@ -182,12 +198,47 @@ export default function customHook() {
 
           if (code !== '200' && message) throw Error(message);
           setErrorUser(null);
-          setUserData(dataList);
+          setUserData(camelize(dataList));
         })
         .catch(setErrorUser)
         .finally(() => setUserLoading(false));
     }
   }, [userID]);
+
+  return {
+    isUserLoading,
+    errorUser,
+    nickname,
+    userData,
+    searchUser,
+    toggleAccountModule,
+    refAccountModule,
+  };
+}
+
+function useCompareData(compareList, setCompareList) {
+  const [isCompareLoading, setCompareLoading] = useState(false);
+  const [errorCompare, setErrorCompare] = useState(null);
+  const [compareData, setCompareData] = useState({});
+  const refCompareModule = useRef(null);
+
+  const toggleCompareModule = (styleRule, clear = null) => {
+    const moduleClassList = Object.values(refCompareModule.current.classList);
+    const removeStyle = moduleClassList.filter(style =>
+      style.includes('modalActive') ? style : null,
+    );
+
+    if (removeStyle.length) {
+      refCompareModule.current.classList.remove(removeStyle);
+    } else {
+      refCompareModule.current.classList.add(styleRule);
+    }
+
+    if (clear) {
+      setCompareData({});
+      setCompareList([]);
+    }
+  };
 
   useEffect(() => {
     if (compareList.length != 0) {
@@ -198,7 +249,7 @@ export default function customHook() {
 
           if (code !== '200' && message) throw Error(message);
           setErrorCompare(null);
-          setCompareData(dataList);
+          setCompareData(camelize(dataList));
         })
         .catch(setErrorCompare)
         .finally(() => setCompareLoading(false));
@@ -206,46 +257,18 @@ export default function customHook() {
   }, [compareList]);
 
   return {
-    selectLanguage,
-    setLanguage,
-    isGeneralLoading,
-    errorGeneral,
-    selectNation,
-    setSelectNation,
-    nationData,
-    setNationData,
-    onChangeNation,
-    selectType,
-    setSelectType,
-    typeData,
-    setTypeData,
-    onChangeType,
-    isSearchLoading,
-    errorSearch,
-    searchData,
-    setSearchData,
-    vehicleId,
-    modalVehicleStatus,
-    setModalVehicleStatus,
-    onClickVehicle,
-    isUserLoading,
-    errorUser,
-    nickname,
-    setNickname,
-    userData,
-    setUserData,
-    modalUserStatus,
-    setModalUserStatus,
-    searchUser,
-    toggleUserInfoModule,
     isCompareLoading,
     errorCompare,
     compareData,
-    setCompareData,
-    setCompareList,
-    modalCompareStatus,
-    setModalCompareStatus,
-    afterCloseModalVehicle,
-    toggleFilteWrap,
+    toggleCompareModule,
+    refCompareModule,
   };
 }
+
+export default {
+  useLanguage,
+  useGeneraData,
+  useSearchData,
+  useUserData,
+  useCompareData,
+};

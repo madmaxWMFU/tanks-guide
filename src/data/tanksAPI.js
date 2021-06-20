@@ -4,7 +4,7 @@ const parameters = {
 
 const getStringParams = params => {
   return Object.entries(params)
-    .map((param, key) => {
+    .map(param => {
       return `${param.join('=')}&`;
     })
     .join('');

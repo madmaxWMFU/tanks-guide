@@ -1,0 +1,20 @@
+.searchTypeTitle {
+  color: #fff;
+  margin: 12px;
+}
+
+.searchTypeWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  list-style: none;
+  padding: 5px;
+}
+
+@media (max-width: 360px) {
+  .searchTypeWrap {
+    justify-content: center;
+    padding: 0;
+  }
+}

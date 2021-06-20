@@ -1,0 +1,155 @@
+.vehicleItem {
+  position: relative;
+  height: 100px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.vehicleItem:hover {
+  box-shadow: 0px 0px 10px 5px #676560;
+}
+
+.vehicleType {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  background: url(../../assets/types/types.png);
+  z-index: 2;
+  width: 24px;
+  height: 23px;
+  padding-left: 24px;
+  padding-top: 2px;
+  color: #bdbaac;
+}
+
+.type-heavyTank {
+  background-position: 0 -275px;
+}
+
+.type-heavyTank--premium {
+  background-position: 0 -45px;
+}
+
+.type-AT-SPG {
+  background-position: 0 -297px;
+}
+
+.type-AT-SPG--premium {
+  background-position: 0 -69px;
+}
+
+.type-mediumTank {
+  background-position: 0 -252px;
+}
+
+.type-mediumTank--premium {
+  background-position: 0 -23px;
+}
+
+.type-lightTank {
+  background-position: 0 -229px;
+}
+
+.type-lightTank--premium {
+  background-position: 0 0;
+}
+
+.type-SPG {
+  background-position: 0 -320px;
+}
+
+.type-SPG--premium {
+  background-position: 0 -92px;
+}
+
+.vehicleFlag {
+  width: 160px;
+  height: 100px;
+  background: url(../../assets/flags/flags.png) no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.vehicleFlag-italy {
+  background-position: 0 -900px;
+}
+
+.vehicleFlag-usa {
+  background-position: 0 0;
+}
+
+.vehicleFlag-czech {
+  background-position: 0 -700px;
+}
+
+.vehicleFlag-poland {
+  background-position: 0 -1000px;
+}
+
+.vehicleFlag-france {
+  background-position: 0 -300px;
+}
+
+.vehicleFlag-sweden {
+  background-position: 0 -800px;
+}
+
+.vehicleFlag-ussr {
+  background-position: 0 -100px;
+}
+
+.vehicleFlag-china {
+  background-position: 0 -200px;
+}
+
+.vehicleFlag-uk {
+  background-position: 0 -500px;
+}
+
+.vehicleFlag-japan {
+  background-position: 0 -400px;
+}
+
+.vehicleFlag-germany {
+  background-position: 0 -600px;
+}
+
+.vehicleImg {
+  z-index: 4;
+  opacity: 0.8;
+}
+
+.vehicleTitle {
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  background-color: #6766665c;
+  color: #bdbaac;
+  width: 100%;
+  font-size: 15px;
+  padding-left: 3px;
+  border-top: solid 1px #696767;
+}
+
+.vehicleTitle--premium {
+  color: #fe881f;
+}
+
+.modalActive {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (max-width: 540px) {
+  .vehicleItem {
+    margin: 3px;
+  }
+}
+
+@media (max-width: 450px) {
+  .vehicleItem {
+    margin: 10px;
+  }
+}

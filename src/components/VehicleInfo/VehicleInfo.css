@@ -1,0 +1,241 @@
+.modalHeader {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: solid 1px #828282;
+  padding-bottom: 10px;
+}
+
+.modalHeaderBtn {
+  width: 30px;
+}
+
+.modalHeaderBtn,
+.modalFooterBtn {
+  height: 30px;
+  border-radius: 8px;
+  line-height: 0px;
+  background-color: #8e8888;
+  border: solid 1px #fff;
+}
+
+.modalHeaderBtn:hover,
+.modalFooterBtn:hover {
+  background-color: #fff;
+  border-color: #8e8888;
+}
+
+.modalBody {
+  margin: 60px auto;
+  width: 40%;
+  background-color: #000;
+  padding: 20px;
+  border: solid 1px #909090;
+  border-radius: 10px;
+}
+
+.modalWrap {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  background-color: #000;
+}
+
+.modalWrapTitle {
+  margin: 10px 0;
+}
+
+.modalContent {
+  margin: 30px;
+}
+
+.vehicleItem {
+  position: relative;
+  height: 100px;
+  margin: 10px;
+}
+
+.vehicleType {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  background: url(../../assets/types/types.png);
+  z-index: 2;
+  width: 24px;
+  height: 23px;
+  padding-left: 24px;
+  padding-top: 2px;
+  color: #bdbaac;
+}
+
+.type-heavyTank {
+  background-position: 0 -275px;
+}
+
+.type-heavyTank--premium {
+  background-position: 0 -45px;
+}
+
+.type-AT-SPG {
+  background-position: 0 -297px;
+}
+
+.type-AT-SPG--premium {
+  background-position: 0 -69px;
+}
+
+.type-mediumTank {
+  background-position: 0 -252px;
+}
+
+.type-mediumTank--premium {
+  background-position: 0 -23px;
+}
+
+.type-lightTank {
+  background-position: 0 -229px;
+}
+
+.type-lightTank--premium {
+  background-position: 0 0;
+}
+
+.type-SPG {
+  background-position: 0 -320px;
+}
+
+.type-SPG--premium {
+  background-position: 0 -92px;
+}
+
+.vehicleFlag {
+  width: 160px;
+  height: 100px;
+  background: url(../../assets/flags/flags.png) no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.vehicleFlag-italy {
+  background-position: 0 -900px;
+}
+
+.vehicleFlag-usa {
+  background-position: 0 0;
+}
+
+.vehicleFlag-czech {
+  background-position: 0 -700px;
+}
+
+.vehicleFlag-poland {
+  background-position: 0 -1000px;
+}
+
+.vehicleFlag-france {
+  background-position: 0 -300px;
+}
+
+.vehicleFlag-sweden {
+  background-position: 0 -800px;
+}
+
+.vehicleFlag-ussr {
+  background-position: 0 -100px;
+}
+
+.vehicleFlag-china {
+  background-position: 0 -200px;
+}
+
+.vehicleFlag-uk {
+  background-position: 0 -500px;
+}
+
+.vehicleFlag-japan {
+  background-position: 0 -400px;
+}
+
+.vehicleFlag-germany {
+  background-position: 0 -600px;
+}
+
+.vehicleImg {
+  z-index: 4;
+  opacity: 0.8;
+}
+
+.vehiclePrice {
+  position: relative;
+  padding-left: 15px;
+}
+
+.vehiclePrice::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 16px;
+  width: 12px;
+}
+
+.priceSilver::before {
+  background: url(../../assets/page/silver_icon.png) no-repeat 0 3px;
+}
+
+.priceGold::before {
+  background: url(../../assets/page/gold_icon.png) no-repeat 0 3px;
+}
+
+.modalContent > div {
+  margin-bottom: 20px;
+}
+
+.modalContent > div > h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.whiteSpace {
+  white-space: break-spaces;
+  line-height: 20px;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  border-top: solid 1px #828282;
+  padding-top: 10px;
+}
+
+@media (max-width: 1600px) {
+  .modalBody {
+    width: 70%;
+  }
+}
+
+@media (max-width: 900px) {
+  .modalBody {
+    margin: 30px auto;
+    width: 90%;
+  }
+
+  .modalWrap {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    margin: 0;
+  }
+
+  .modalWrap {
+    padding: 0;
+  }
+
+  .vehicleItem {
+    margin: 10px auto;
+  }
+}
