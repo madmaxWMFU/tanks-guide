@@ -75,15 +75,15 @@ export default function App() {
             onClickVehicle={onClickVehicle}
             selectNation={selectNation}
             selectType={selectType}
-            refInfoModule={refInfoModule}
           />
         </div>
-        <VehicleInfo
-          vehicleId={vehicleId}
-          vehicle={searchData[vehicleId]}
-          toggleModalVehicle={toggleModalVehicle}
-          refInfoModule={refInfoModule}
-        />
+        <div className={style.modal} ref={refInfoModule}>
+          <VehicleInfo
+            vehicleId={vehicleId}
+            vehicle={searchData[vehicleId]}
+            toggleModalVehicle={toggleModalVehicle}
+          />
+        </div>
       </main>
       <Footer />
     </LanguageContext.Provider>
