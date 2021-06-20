@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { LanguageContext, InformationContext } from '../../context';
 import { languageList } from '../../data';
 import { isEmptyObject } from '../../utils';
+import { LoadWrap, ErrorWrap } from '../Status';
 import style from './CompareList.css';
 
 export default function CompareList() {
@@ -10,10 +11,7 @@ export default function CompareList() {
     InformationContext,
   );
 
-  const {
-    modal,
-    status: { loadData, errorData },
-  } = languageList[selectedLanguage];
+  const { modal } = languageList[selectedLanguage];
 
   if (!isEmptyObject(compareData)) {
     return (
@@ -34,19 +32,11 @@ export default function CompareList() {
   }
 
   if (isCompareLoading) {
-    return (
-      <div className={style.loadWrap}>
-        <span>{loadData}</span>
-      </div>
-    );
+    return <LoadWrap />;
   }
 
   if (errorCompare) {
-    return (
-      <div className={style.loadWrap}>
-        {errorData}: {typeof errorCompare === 'object' ? errorCompare.toString() : errorCompare}
-      </div>
-    );
+    return <ErrorWrap errorData={errorCompare} />;
   }
 
   return (

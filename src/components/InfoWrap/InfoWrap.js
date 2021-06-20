@@ -16,10 +16,8 @@ export default function InfoWrap() {
     toggleCompareModule,
   } = useContext(InformationContext);
   const { selectedLanguage } = useContext(LanguageContext);
-  const {
-    userStat,
-    status: { loadData, errorData },
-  } = languageList[selectedLanguage];
+  const { userStat } = languageList[selectedLanguage];
+
   return (
     <>
       <div className={style.user}>

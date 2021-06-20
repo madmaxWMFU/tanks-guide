@@ -152,6 +152,7 @@ function useUserData() {
 
     if (key === 'Enter') {
       setNickname(value);
+      setUserData({});
       event.target.value = '';
     }
   };

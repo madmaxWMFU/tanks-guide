@@ -3,25 +3,19 @@ import { LanguageContext } from '../../context';
 import { languageList } from '../../data';
 import FilterItem from '../FilterItem';
 import style from './TypesList.css';
+import { ErrorWrap } from '../Status';
 import imgTypeList from '../../assets/types/*.png';
 
 export default function TypesList({ errorGeneral, typeData, selectType, onChangeType }) {
   const { selectedLanguage } = useContext(LanguageContext);
-  const {
-    typeTitle,
-    status: { errorData },
-  } = languageList[selectedLanguage];
+  const { typeTitle } = languageList[selectedLanguage];
 
   if (!typeData) {
     return null;
   }
 
   if (errorGeneral) {
-    return (
-      <div className={style.loadWrap}>
-        {errorData}: {typeof errorGeneral === 'object' ? errorGeneral.toString() : errorGeneral}
-      </div>
-    );
+    return <ErrorWrap errorData={errorGeneral} />;
   }
 
   return (

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { LanguageContext } from '../../context';
 import { languageList, getFilterList } from '../../data';
 import VehicleListCategory from '../VehicleListCategory';
+import { LoadWrap, ErrorWrap } from '../Status';
 import style from './VehicleList.css';
 import mainImage from '../../assets/page/main.jpeg';
 
@@ -16,7 +17,6 @@ export default function VehicleList({
   const { selectedLanguage } = useContext(LanguageContext);
   const {
     typeTank,
-    status: { errorData, loadData },
     startPage: { title, text },
   } = languageList[selectedLanguage];
 
@@ -31,19 +31,11 @@ export default function VehicleList({
   }
 
   if (isSearchLoading) {
-    return (
-      <div className={style.loadWrap}>
-        <span>{loadData}</span>
-      </div>
-    );
+    return <LoadWrap />;
   }
 
   if (errorSearch) {
-    return (
-      <div className={style.loadWrap}>
-        {errorData}: {typeof errorSearch === 'object' ? errorSearch.toString() : errorSearch}
-      </div>
-    );
+    return <ErrorWrap errorData={errorSearch} />;
   }
 
   return (

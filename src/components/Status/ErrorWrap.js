@@ -3,7 +3,7 @@ import { LanguageContext } from '../../context';
 import { languageList } from '../../data';
 import { errorWrap } from './Status.css';
 
-export function ErrorWrap(message, errorData) {
+export function ErrorWrap({ errorData }) {
   const { selectedLanguage } = useContext(LanguageContext);
   const {
     status: { errorTitle },

@@ -2,29 +2,19 @@ import React, { useContext } from 'react';
 import { LanguageContext, InformationContext } from '../../context';
 import { languageList } from '../../data';
 import { getDateFromUnixTimestamp } from '../../utils';
+import { LoadWrap, ErrorWrap } from '../Status';
 
 export default function AccountInformation() {
   const { isUserLoading, errorUser, userData } = useContext(InformationContext);
   const { selectedLanguage } = useContext(LanguageContext);
-  const {
-    userStat,
-    status: { loadData, errorData },
-  } = languageList[selectedLanguage];
+  const { userStat } = languageList[selectedLanguage];
 
   if (isUserLoading) {
-    return (
-      <div>
-        <span>{loadData}</span>
-      </div>
-    );
+    return <LoadWrap />;
   }
 
   if (errorUser) {
-    return (
-      <div>
-        {errorData}: {typeof errorUser === 'object' ? errorUser.toString() : errorUser}
-      </div>
-    );
+    return <ErrorWrap errorData={errorUser} />;
   }
 
   return Object.values(userData).map(user => {
