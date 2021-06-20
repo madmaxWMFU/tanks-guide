@@ -19,14 +19,6 @@ export function getDateFromUnixTimestamp(dt) {
   return new Date(dt * 1000).toLocaleDateString();
 }
 
-export function closeModal(modal, type) {
-  const modalWrap = modal.closest(`.${type}`);
-  const activeClass = Object.values(modalWrap.classList).filter(itemClass =>
-    itemClass.includes('modalActive'),
-  );
-  modalWrap.classList.remove(activeClass);
-}
-
 export const isFunction = func => typeof func === 'function';
 
 export const isEmptyObject = obj => Object.entries(obj).length !== 0;

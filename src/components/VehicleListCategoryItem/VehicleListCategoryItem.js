@@ -28,7 +28,7 @@ export default function VehicleListCategory({ vehicle, onClickVehicle }) {
         src={bigIcon}
         alt={shortName}
         data-id={tankId}
-        onClick={event => onClickVehicle(event)}
+        onClick={event => onClickVehicle(event, style.modalActive)}
       />
       <span
         className={`${style.vehicleTitle} ${isPremium ? `${style['vehicleTitle--premium']}` : ''}`}

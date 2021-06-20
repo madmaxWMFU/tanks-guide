@@ -1,14 +1,14 @@
 import React from 'react';
 import hooks from '../../customHooks';
 import { LanguageContext, InformationContext } from '../../context';
+import style from './App.css';
 import Header from '../Header';
 import NationsList from '../NationsList';
 import TypesList from '../TypesList';
-import VehicleList from '../VehicleList';
 import VehicleInfo from '../VehicleInfo';
+import VehicleList from '../VehicleList';
 import InfoWrap from '../InfoWrap';
 import Footer from '../Footer';
-import style from './App.css';
 
 export default function App() {
   const { useLanguage, useGeneraData, useSearchData, useUserData, useCompareData } = hooks;
@@ -29,11 +29,11 @@ export default function App() {
     errorSearch,
     searchData,
     onClickVehicle,
-    modalVehicleStatus,
     vehicleId,
-    afterCloseModalVehicle,
+    toggleModalVehicle,
     compareList,
     setCompareList,
+    refInfoModule,
   } = useSearchData(selectedLanguage, selectNation, selectType);
 
   return (
@@ -75,13 +75,14 @@ export default function App() {
             onClickVehicle={onClickVehicle}
             selectNation={selectNation}
             selectType={selectType}
+            refInfoModule={refInfoModule}
           />
         </div>
         <VehicleInfo
-          modalVehicleStatus={modalVehicleStatus}
           vehicleId={vehicleId}
           vehicle={searchData[vehicleId]}
-          afterCloseModalVehicle={afterCloseModalVehicle}
+          toggleModalVehicle={toggleModalVehicle}
+          refInfoModule={refInfoModule}
         />
       </main>
       <Footer />

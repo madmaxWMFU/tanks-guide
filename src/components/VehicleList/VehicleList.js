@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { LanguageContext } from '../../context';
 import { languageList, getFilterList } from '../../data';
 import VehicleListCategory from '../VehicleListCategory';
-import mainImage from '../../assets/page/main.jpeg';
 import style from './VehicleList.css';
+import mainImage from '../../assets/page/main.jpeg';
 
 export default function VehicleList({
   errorSearch,

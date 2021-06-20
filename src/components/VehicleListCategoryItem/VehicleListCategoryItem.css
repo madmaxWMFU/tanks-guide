@@ -136,6 +136,12 @@
   color: #fe881f;
 }
 
+.modalActive {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 @media (max-width: 540px) {
   .vehicleItem {
     margin: 3px;

@@ -78,17 +78,26 @@ function useSearchData(selectedLanguage, selectNation, selectType) {
   const [searchData, setSearchData] = useState({});
   const [compareList, setCompareList] = useState([]);
   const [vehicleId, setVehicleId] = useState(null);
-  const [modalVehicleStatus, setModalVehicleStatus] = useState(false);
   const refInfoModule = useRef(null);
 
-  const onClickVehicle = event => {
+  const onClickVehicle = (event, styleRule) => {
     setVehicleId(event.target.dataset.id);
-    setModalVehicleStatus(true);
+    refInfoModule.current.classList.add(styleRule);
   };
 
-  const afterCloseModalVehicle = (id = null) => {
-    setVehicleId(null);
-    setModalVehicleStatus(false);
+  const toggleModalVehicle = (styleRule, id = null) => {
+    const moduleClassList = Object.values(refInfoModule.current.classList);
+    const removeStyle = moduleClassList.filter(style =>
+      style.includes('modalActive') ? style : null,
+    );
+
+    if (removeStyle.length) {
+      setVehicleId(null);
+      refInfoModule.current.classList.remove(removeStyle);
+    } else {
+      refInfoModule.current.classList.add(styleRule);
+    }
+
     if (id) {
       setCompareList([...compareList, id]);
     }
@@ -119,9 +128,8 @@ function useSearchData(selectedLanguage, selectNation, selectType) {
     errorSearch,
     searchData,
     vehicleId,
-    modalVehicleStatus,
     onClickVehicle,
-    afterCloseModalVehicle,
+    toggleModalVehicle,
     refInfoModule,
     compareList,
     setCompareList,

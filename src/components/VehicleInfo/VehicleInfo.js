@@ -1,15 +1,10 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../../context';
 import { languageList } from '../../data';
-import { getRomeNumber, closeModal } from '../../utils';
+import { getRomeNumber } from '../../utils';
 import style from './VehicleInfo.css';
 
-export default function VehicleInfo({
-  modalVehicleStatus,
-  vehicleId,
-  vehicle,
-  afterCloseModalVehicle,
-}) {
+export default function VehicleInfo({ refInfoModule, vehicleId, vehicle, toggleModalVehicle }) {
   const { selectedLanguage } = useContext(LanguageContext);
   const {
     modal,
@@ -47,15 +42,12 @@ export default function VehicleInfo({
   } = vehicle;
 
   return (
-    <div className={`${style.modal} modalVehicle ${modalVehicleStatus ? style.modalActive : ''}`}>
+    <div className={style.modal} ref={refInfoModule}>
       <div className={style.modalBody}>
         <div className={style.modalHeader}>
           <button
             className={style.modalHeaderBtn}
-            onClick={event => {
-              closeModal(event.target, 'modalVehicle');
-              afterCloseModalVehicle();
-            }}
+            onClick={() => toggleModalVehicle(style.modalActive)}
           >
             x
           </button>
@@ -174,10 +166,7 @@ export default function VehicleInfo({
           <button
             className={style.modalFooterBtn}
             data-id={vehicleId}
-            onClick={event => {
-              closeModal(event.target, 'modalVehicle');
-              afterCloseModalVehicle(event.target.dataset.id);
-            }}
+            onClick={event => toggleModalVehicle(style.modalActive, event.target.dataset.id)}
           >
             {modal.btn_add_compare}
           </button>
